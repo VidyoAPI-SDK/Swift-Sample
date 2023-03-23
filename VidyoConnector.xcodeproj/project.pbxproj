@@ -206,11 +206,11 @@
 		0C67D3104340FD8D36B848C3 /* Pods-VidyoConnector.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VidyoConnector.release.xcconfig"; path = "Target Support Files/Pods-VidyoConnector/Pods-VidyoConnector.release.xcconfig"; sourceTree = "<group>"; };
 		0F9671E7288E7E3900E23170 /* VidyoInsightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VidyoInsightViewController.swift; sourceTree = "<group>"; };
 		1905E961CD7C651181627E4C /* Pods_VidyoConnector.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VidyoConnector.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AC095B9A294DCC280073A6CB /* BNBEffectPlayerC.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = BNBEffectPlayerC.xcframework; path = "../../../../VidyoClient-iOSSDK/lib/ios/Banuba/BNBEffectPlayerC.xcframework"; sourceTree = "<group>"; };
-		AC095B9C294DCC380073A6CB /* VidyoClientIOS.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = VidyoClientIOS.xcframework; path = "../../../../VidyoClient-iOSSDK/lib/ios/VidyoClientIOS.xcframework"; sourceTree = "<group>"; };
+		AC095B9A294DCC280073A6CB /* BNBEffectPlayerC.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = BNBEffectPlayerC.xcframework; path = "VidyoClient-iOSSDK/lib/ios/Banuba/BNBEffectPlayerC.xcframework"; sourceTree = "<group>"; };
+		AC095B9C294DCC380073A6CB /* VidyoClientIOS.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = VidyoClientIOS.xcframework; path = "VidyoClient-iOSSDK/lib/ios/VidyoClientIOS.xcframework"; sourceTree = "<group>"; };
 		AC97411127E28A3E007C424C /* VidyoConnectorVersion_.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = VidyoConnectorVersion_.sh; sourceTree = "<group>"; };
 		AC97417D27E28D70007C424C /* BackgroundImages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = BackgroundImages; sourceTree = "<group>"; };
-		AC97417F27E28D83007C424C /* effects */ = {isa = PBXFileReference; lastKnownFileType = folder; name = effects; path = "../../../../../../VidyoClient-iOSSDK/lib/ios/Banuba/effects"; sourceTree = "<group>"; };
+		AC97417F27E28D83007C424C /* effects */ = {isa = PBXFileReference; lastKnownFileType = folder; name = effects; path = "../../VidyoClient-iOSSDK/lib/ios/Banuba/effects"; sourceTree = "<group>"; };
 		ACE893B527E23E7F008990C3 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		ACE893DC27E2406D008990C3 /* VidyoConnector.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VidyoConnector.entitlements; sourceTree = "<group>"; };
 		ECD19BA9440527CCB8551AAD /* Pods-VidyoConnector.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VidyoConnector.debug.xcconfig"; path = "Target Support Files/Pods-VidyoConnector/Pods-VidyoConnector.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1443,7 +1443,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6888NB32SR;
 				ENABLE_BITCODE = NO;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/.../../../../../../VidyoClient-iOSSDK/include/**";
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/.../../VidyoClient-iOSSDK/include/**";
 				INFOPLIST_FILE = VidyoConnector/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1471,7 +1471,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6888NB32SR;
 				ENABLE_BITCODE = NO;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/.../../../../../../VidyoClient-iOSSDK/include/**";
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/.../../VidyoClient-iOSSDK/include/**";
 				INFOPLIST_FILE = VidyoConnector/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
