@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BackgroundCollectionViewCell" id="gTV-IL-0wX" customClass="BackgroundCollectionViewCell" customModule="VidyoConnector_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="140" height="78"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="140" height="78"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="none" translatesAutoresizingMaskIntoConstraints="NO" id="2Lj-rV-osL">
+                        <rect key="frame" x="0.0" y="0.0" width="140" height="78"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="None" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E9k-Br-fj6">
+                        <rect key="frame" x="0.0" y="30.5" width="140" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="17" id="CYL-vs-2IT"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="mQO-SN-VIG">
+                        <rect key="frame" x="116" y="8.5" width="16" height="15"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" name="GreenAccentColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="HFn-RR-1rS"/>
+                            <constraint firstAttribute="width" constant="16" id="g2o-H7-ZaG"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="mQO-SN-VIG" secondAttribute="trailing" constant="8" id="FyO-aG-rYr"/>
+                <constraint firstAttribute="trailing" secondItem="E9k-Br-fj6" secondAttribute="trailing" id="H51-b4-WgQ"/>
+                <constraint firstItem="2Lj-rV-osL" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="SJ3-Sc-xtG"/>
+                <constraint firstItem="E9k-Br-fj6" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="SVj-3F-cUP"/>
+                <constraint firstItem="mQO-SN-VIG" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="cf9-FO-Bc1"/>
+                <constraint firstItem="E9k-Br-fj6" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="d4i-VE-fAG"/>
+                <constraint firstAttribute="trailing" secondItem="2Lj-rV-osL" secondAttribute="trailing" id="iXR-g5-CfK"/>
+                <constraint firstItem="2Lj-rV-osL" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="tfy-Ep-l9m"/>
+                <constraint firstItem="E9k-Br-fj6" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="vPo-ZX-pQ5"/>
+                <constraint firstAttribute="bottom" secondItem="2Lj-rV-osL" secondAttribute="bottom" id="zK9-XT-yKc"/>
+            </constraints>
+            <size key="customSize" width="342" height="139"/>
+            <connections>
+                <outlet property="backgroungImageView" destination="2Lj-rV-osL" id="hOJ-gD-fw1"/>
+                <outlet property="checkmarkImageView" destination="mQO-SN-VIG" id="ZNl-de-JqF"/>
+                <outlet property="descriptionLabel" destination="E9k-Br-fj6" id="9ME-0S-jGQ"/>
+            </connections>
+            <point key="canvasLocation" x="233.33333333333334" y="160.04464285714286"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="none" width="136" height="76"/>
+        <namedColor name="GreenAccentColor">
+            <color red="0.50196078431372548" green="0.69019607843137254" blue="0.18431372549019609" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="34.3px" height="32px" viewBox="0 0 34.3 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>receiveBubble</title>
+    <g id="receiveBubble" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.1">
+        <g id="Symbols" fill="#4A4A4A" fill-rule="nonzero">
+            <g id="UI-Elements-/-Chat-/-Message-/-Incoming">
+                <path d="M28.5478516,0 C31.2999381,0 34.3,2.2259289 34.3,4.9717514 L34.3,24.5667102 C34.3,27.3125326 31.2999381,29.3279353 28.5478516,29.3279353 L7.47464143,29.5384615 C6.97422885,29.5384615 6.49104439,29.4648674 6.03536755,29.3279353 C4.09804507,30.7880264 2.08627092,31.6787088 0,32 C1.46187433,30.3865387 2.46629015,28.6474272 3.01324747,26.7826653 C2.67906448,26.1151216 2.49154714,25.3627645 2.49154714,24.5667102 L2.49154714,4.9717514 C2.49154714,2.2259289 4.72255442,0 7.47464143,0 L28.5478516,0 Z" id="BG-bubble"></path>
+            </g>
+        </g>
+    </g>
+</svg>

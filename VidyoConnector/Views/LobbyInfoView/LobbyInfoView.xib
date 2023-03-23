@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iN0-l3-epB" customClass="LobbyInfoView" customModule="VidyoConnector_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="371" height="289"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jJ7-ld-YmJ">
+                    <rect key="frame" x="160.5" y="10" width="50" height="50"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GEE-Nb-0R7">
+                            <rect key="frame" x="17.5" y="10" width="15" height="30"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="GEE-Nb-0R7" firstAttribute="centerX" secondItem="jJ7-ld-YmJ" secondAttribute="centerX" id="3r7-Q2-DCS"/>
+                        <constraint firstAttribute="width" constant="50" id="D8n-T1-DZ6"/>
+                        <constraint firstAttribute="height" constant="50" id="wKA-Mr-0gH"/>
+                        <constraint firstItem="GEE-Nb-0R7" firstAttribute="centerY" secondItem="jJ7-ld-YmJ" secondAttribute="centerY" id="xRA-6Y-6bS"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Elizabeth Martin" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4E1-Ax-keJ">
+                    <rect key="frame" x="10" y="171" width="351" height="19.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The meeting will start in a few seconds." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KF8-G3-RPB">
+                    <rect key="frame" x="10" y="100" width="351" height="21.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iF1-vd-VMd">
+                    <rect key="frame" x="35.5" y="222.5" width="300" height="42"/>
+                    <color key="backgroundColor" name="GreenAccentColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="42" id="1Up-sS-nrG"/>
+                        <constraint firstAttribute="width" constant="300" id="9dO-dX-5xy"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <state key="normal" title="Join Call">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="joinCallButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="O1B-wu-lw3"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Daily Standup Meeting" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qYa-gG-1bh">
+                    <rect key="frame" x="10" y="139.5" width="351" height="19.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="iF1-vd-VMd" firstAttribute="top" secondItem="4E1-Ax-keJ" secondAttribute="bottom" constant="32" id="3kZ-2e-icy"/>
+                <constraint firstItem="qYa-gG-1bh" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="5rI-z4-nVk"/>
+                <constraint firstItem="qYa-gG-1bh" firstAttribute="top" secondItem="KF8-G3-RPB" secondAttribute="bottom" constant="18" id="78H-Fx-yQd"/>
+                <constraint firstItem="4E1-Ax-keJ" firstAttribute="top" secondItem="qYa-gG-1bh" secondAttribute="bottom" constant="12" id="CXG-Pl-gAy"/>
+                <constraint firstItem="iF1-vd-VMd" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="DgZ-y2-MxT"/>
+                <constraint firstItem="KF8-G3-RPB" firstAttribute="top" secondItem="jJ7-ld-YmJ" secondAttribute="bottom" constant="40" id="EFE-TT-dtr"/>
+                <constraint firstItem="jJ7-ld-YmJ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="JVC-0Q-beW"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="qYa-gG-1bh" secondAttribute="trailing" constant="10" id="MS5-YN-P3b"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="iF1-vd-VMd" secondAttribute="bottom" constant="20" id="QHY-es-Dp2"/>
+                <constraint firstItem="jJ7-ld-YmJ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="bV9-G9-AIl"/>
+                <constraint firstItem="KF8-G3-RPB" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="dmE-eV-DQT"/>
+                <constraint firstItem="4E1-Ax-keJ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="fGN-uJ-FCV"/>
+                <constraint firstItem="qYa-gG-1bh" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="iDi-8C-nTD"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="KF8-G3-RPB" secondAttribute="trailing" constant="10" id="pPp-gC-5rb"/>
+                <constraint firstItem="4E1-Ax-keJ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="rcq-Hu-UK5"/>
+                <constraint firstItem="KF8-G3-RPB" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="vN5-eK-yPG"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="4E1-Ax-keJ" secondAttribute="trailing" constant="10" id="z2i-aG-KLl"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="hostNameLabel" destination="4E1-Ax-keJ" id="dk0-bI-7yv"/>
+                <outlet property="joinCallButton" destination="iF1-vd-VMd" id="dbY-Tl-MS1"/>
+                <outlet property="roomNameLabel" destination="qYa-gG-1bh" id="MTT-qn-3QF"/>
+                <outlet property="timeLabel" destination="GEE-Nb-0R7" id="25L-n3-CUb"/>
+                <outlet property="timerContainerView" destination="jJ7-ld-YmJ" id="L7a-rf-PoO"/>
+            </connections>
+            <point key="canvasLocation" x="71.739130434782609" y="-66.629464285714278"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="GreenAccentColor">
+            <color red="0.50196078431372548" green="0.69019607843137254" blue="0.18431372549019609" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
