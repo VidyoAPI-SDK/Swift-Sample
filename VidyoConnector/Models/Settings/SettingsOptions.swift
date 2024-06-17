@@ -11,10 +11,8 @@ enum SettingsOption: String {
     case general = "General"
     case audio = "Audio"
     case video = "Video"
-    case account = "Account"
     case logs = "Logs"
     case about = "About"
-    case help = "Help"
 }
 
 enum SettingsSectionHeaderTitle: String {

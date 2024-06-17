@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import VidyoClientIOS
 
 enum ChatNotificationEventType: String {
     case joinedConference = "joined the conference"

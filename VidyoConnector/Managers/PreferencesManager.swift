@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import VidyoClientIOS
 
 enum PreferencesOption {
     case mic
@@ -33,6 +34,7 @@ class PreferencesManager {
     }
     
     func updateDisabledStates() {
+        speakerState.enableIfNeeded()
         micState.enableIfNeeded()
         cameraState.enableIfNeeded()
     }
@@ -55,9 +57,9 @@ class PreferencesManager {
     
     func handleStateUpdated(type: PreferencesOption, state: VCDeviceState) {
         let deviceState: DeviceState
-        if state == .started || state == .resumed {
+        if state == .resumed {
             deviceState = .unmuted
-        } else if state == .stopped || state == .paused {
+        } else if state == .paused {
             deviceState = .muted
         } else {
             return
@@ -74,19 +76,13 @@ class PreferencesManager {
     }
     
     func getProperImageName(for option: PreferencesOption) -> String {
-        var optionOff = String()
-        let isOnCall: Bool = ConnectorManager.shared.connectionManager.connectionState.bool
-        
         switch option {
         case .speaker:
-            optionOff = isOnCall ? Constants.Icon.speakerMuted : Constants.Icon.speakerDisabled
-            return speakerState == .unmuted ? Constants.Icon.speakerOn : optionOff
+            return speakerState == .unmuted ? Constants.Icon.speakerOn : (speakerState == .disabled ? Constants.Icon.speakerDisabled : Constants.Icon.speakerMuted)
         case .mic:
-            optionOff = (isOnCall && micState == .muted) ? Constants.Icon.micMuted : Constants.Icon.micDisabled
-            return micState == .unmuted ? Constants.Icon.micOn : optionOff
+            return micState == .unmuted ? Constants.Icon.micOn : (micState == .disabled ? Constants.Icon.micDisabled : Constants.Icon.micMuted)
         case .camera:
-            optionOff = (isOnCall && cameraState == .muted) ? Constants.Icon.cameraMuted : Constants.Icon.cameraDisabled
-            return cameraState == .unmuted ? Constants.Icon.cameraOn : optionOff
+            return cameraState == .unmuted ? Constants.Icon.cameraOn : (cameraState == .disabled ? Constants.Icon.cameraDisabled : Constants.Icon.cameraMuted)
         }
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import VidyoClientIOS
 
 struct GoogleAnalyticsEvent: Equatable {
     var title: AnalyticsEventCategory

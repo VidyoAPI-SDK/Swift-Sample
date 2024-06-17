@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import VidyoClientIOS
 
 class RemoteShareManager {
     let connector = ConnectorManager.shared.connector

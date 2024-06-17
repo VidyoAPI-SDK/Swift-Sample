@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import VidyoClientIOS
 
 class RemoteMicrophoneManager {
     let connector = ConnectorManager.shared.connector

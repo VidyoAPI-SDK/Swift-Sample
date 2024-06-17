@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import VidyoClientIOS
 
 enum VideoSettingsSectionHeaderTitle: String {
     case general = "General"

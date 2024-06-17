@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import VidyoClientIOS
 
 class AudioConfigurationManager {
     enum AudioOptions: String {

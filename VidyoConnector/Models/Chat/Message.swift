@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import VidyoClientIOS
 
 struct Message: MessageProtocol {
     var sender: VCParticipant?

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import VidyoClientIOS
 
 class VirtualVideoSourceManager {
     let connector = ConnectorManager.shared.connector

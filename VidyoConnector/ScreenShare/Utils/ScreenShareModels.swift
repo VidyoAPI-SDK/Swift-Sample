@@ -8,7 +8,7 @@
 import Foundation
 
 //MARK: - Protocols
-protocol ScreenShareOutputListener: class {
+protocol ScreenShareOutputListener: AnyObject {
     func onStart(_ stream: ScreenShareOutputProtocol, recommendedFPS: Int)
     func onStop(_ stream: ScreenShareOutputProtocol)
     func onReconfigure(_ stream: ScreenShareOutputProtocol, recommendedFPS: Int)

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import VidyoClientIOS
 
 enum AudioSettingsSectionHeaderTitle: String {
     case deviceSelection = "Device selection"

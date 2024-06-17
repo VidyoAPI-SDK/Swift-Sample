@@ -7,6 +7,7 @@
 
 import UIKit
 import os
+import VidyoClientIOS
 
 let log = Logger()
 
@@ -16,9 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         VCConnectorPkg.vcInitialize()
         
-        let analyticId = AnalyticsManager.getDefaultGoogleAnalyticId()
-        if(!analyticId.isEmpty) {
-            if !VCConnectorPkg.setExperimentalOptions("{\"googleAnalyticsDefaultId\":\"" + analyticId + "\"}") {
+        if let options = AnalyticsManager.getDefaultGoogleAnalyticOptions() {
+            let json = String(format: "{\"GoogleAnalyticsData\":{\"id\":\"%@\",\"key\":\"%@\"}}", options.id, options.key)
+
+            if !VCConnectorPkg.setExperimentalOptions(json) {
                 log.error("Failed to set experimental options")
             }
         }

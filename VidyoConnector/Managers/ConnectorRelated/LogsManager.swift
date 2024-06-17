@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import VidyoClientIOS
 
 class LogsManager {
     let connector = ConnectorManager.shared.connector
@@ -14,8 +15,8 @@ class LogsManager {
         return connector.setLogLevel(.FILE, logLevel: logLevel)
     }
     
-    func setAdvancedLogOptions(filter: NSMutableString) -> Bool {
-        return connector.setAdvancedLogOptions(.FILE, advancedLogFilter: filter)
+    func setAdvancedLogOptions(filter: String) -> Bool {
+        return connector.setAdvancedLogOptions(.FILE, advancedLogFilter: NSMutableString(string: filter))
     }
     
     func setLogLevel(_ logLevel: LogLevel) -> Bool {

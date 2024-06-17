@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import VidyoClientIOS
 
 class ParticipantsManager {
     let connector = ConnectorManager.shared.connector

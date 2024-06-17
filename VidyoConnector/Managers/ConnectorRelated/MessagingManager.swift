@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import VidyoClientIOS
 
 class MessagingManager {
     private let connector = ConnectorManager.shared.connector

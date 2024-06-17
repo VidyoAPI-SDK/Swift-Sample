@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import VidyoClientIOS
 
 protocol LocalDeviceStateUpdatedDelegate: AnyObject {
     func onLocalDeviceStateUpdated(type: PreferencesOption, state: VCDeviceState)
@@ -26,10 +27,8 @@ class SettingsManager {
         SettingsOptionCell(title: .general, iconName: Constants.Icon.general, isEnabled: true),
         SettingsOptionCell(title: .audio, iconName: Constants.Icon.audio, isEnabled: true),
         SettingsOptionCell(title: .video, iconName: Constants.Icon.video, isEnabled: true),
-        SettingsOptionCell(title: .account, iconName: Constants.Icon.accountDisabled, isEnabled: false),
         SettingsOptionCell(title: .logs, iconName: Constants.Icon.logs, isEnabled: true),
-        SettingsOptionCell(title: .about, iconName: Constants.Icon.info, isEnabled: true),
-        SettingsOptionCell(title: .help, iconName: Constants.Icon.help, isEnabled: true)
+        SettingsOptionCell(title: .about, iconName: Constants.Icon.info, isEnabled: true)
     ]
     
     private lazy var generalData = [SettingsSection]()
@@ -48,6 +47,7 @@ class SettingsManager {
     // MARK: - Functions
     func setDelegate(_ delegate: LocalDeviceStateUpdatedDelegate) {
         audioConfiguration.delegate = delegate
+		cameraConfiguration.delegate = delegate
     }
     
     func getMainOptinsData() -> [SettingsOptionCell] {

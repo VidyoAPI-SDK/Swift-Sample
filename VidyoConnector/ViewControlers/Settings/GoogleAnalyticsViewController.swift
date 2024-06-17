@@ -7,12 +7,16 @@
 
 import UIKit
 import os
+import VidyoClientIOS
 
 class GoogleAnalyticsViewController: UIViewController {
 
     // MARK: - IBOutlets
-    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var descriptionIdLabel: UILabel!
     @IBOutlet weak var googleanalyticIdTextField: AnalyticsTextField!
+    @IBOutlet weak var descriptionKeyLabel: UILabel!
+    @IBOutlet weak var googleanalyticKeyTextField: AnalyticsTextField!
+
     @IBOutlet weak var errorMessageLabel: UILabel!
     
     @IBOutlet weak var googleAnalyticsEventsView: UIView!
@@ -38,32 +42,38 @@ class GoogleAnalyticsViewController: UIViewController {
         applyButton.layer.cornerRadius = 4
         
         setupTableView()
-        descriptionLabel.text = " Web Property ID"
-        googleanalyticIdTextField.text = analyticsManager.isGoogleAnalyticsServiceEnabled() == true ? String(analyticsManager.getGoogleAnalyticsServiceId()) : ""
         
+        descriptionIdLabel.text = " Web Property ID"
+        descriptionKeyLabel.text = " Web Property Key"
+
+        if analyticsManager.isGoogleAnalyticsServiceEnabled() {
+            analyticsManager.getGoogleAnalyticOptions(self)
+        }
+
         enableStartButton(!analyticsManager.isGoogleAnalyticsServiceEnabled());
         enableStopButton(analyticsManager.isGoogleAnalyticsServiceEnabled());
     }
     
     //MARK:- Start Action
     @IBAction func startGoogleAnalytics(_ sender : UIButton) {
-        var googleAnalyticId = ""
+        var options: VCConnectorGoogleAnalyticsOptions?
         
-        if(googleanalyticIdTextField.text?.isEmpty == true) {
-            googleAnalyticId = AnalyticsManager.getDefaultGoogleAnalyticId()
-        }
-        else {
-            googleAnalyticId = googleanalyticIdTextField.text!
+        if (googleanalyticIdTextField.text?.isEmpty == true && googleanalyticKeyTextField.text?.isEmpty == true) {
+            options = AnalyticsManager.getDefaultGoogleAnalyticOptions()
+        } else {
+            options = VCConnectorGoogleAnalyticsOptions()
+            options?.id = NSMutableString(string: googleanalyticIdTextField.text!)
+            options?.key = NSMutableString(string: googleanalyticKeyTextField.text!)
         }
         
-        if(!analyticsManager.startGoogleAnalyticsService(withEnteredData: googleAnalyticId)) {
+        if(options != nil && analyticsManager.startGoogleAnalyticsService(withOptions: options)) {
             errorMessageLabel.text = " Failed to start google analytics service."
             errorMessageLabel.isHidden = false
         }
         else {
             enableStartButton(false);
             enableStopButton(true);
-            googleanalyticIdTextField.text = String(analyticsManager.getGoogleAnalyticsServiceId())
+            analyticsManager.getGoogleAnalyticOptions(self)
             errorMessageLabel.isHidden = true
         }
     }
@@ -85,6 +95,7 @@ class GoogleAnalyticsViewController: UIViewController {
         startGoogleAnalyticsButton.isUserInteractionEnabled = enable
         startGoogleAnalyticsButton.alpha = enable ? 1.0 : 0.5
         googleanalyticIdTextField.isUserInteractionEnabled = enable
+        googleanalyticKeyTextField.isUserInteractionEnabled = enable
     }
     
     func enableStopButton(_ enable : Bool){
@@ -92,6 +103,7 @@ class GoogleAnalyticsViewController: UIViewController {
         stopGoogleAnalyticsButton.alpha = enable ? 1.0 : 0.5
         if(!enable) {
             googleanalyticIdTextField.text = ""
+            googleanalyticKeyTextField.text = ""
         }
     }
     
@@ -196,5 +208,15 @@ extension GoogleAnalyticsViewController: UITextFieldDelegate {
         guard let text = textField.text, !text.isEmpty else { return false }
         errorMessageLabel.isHidden = true
         return true
+    }
+}
+
+//MARK: - VCConnectorIGetGoogleAnalyticsOptions
+extension GoogleAnalyticsViewController: VCConnectorIGetGoogleAnalyticsOptions {
+    func onGet(_ options: VCConnectorGoogleAnalyticsOptions!) {
+        DispatchQueue.main.async {
+            self.googleanalyticIdTextField.text = options.id as String?
+            self.googleanalyticKeyTextField.text = options.key as String?
+        }
     }
 }

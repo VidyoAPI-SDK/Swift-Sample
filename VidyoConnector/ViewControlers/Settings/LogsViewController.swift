@@ -47,7 +47,7 @@ class LogsViewController: UIViewController {
             log.error("Filter is nil or empty.")
             return
         }
-        let success = logsManager.setAdvancedLogOptions(filter: NSMutableString(string: filter))
+        let success = logsManager.setAdvancedLogOptions(filter: filter)
         log.info("setAdvancedLogOptions returned \(success)")
         showMessageForAdvancedFilter(withResult: success)
         updateLogsIfNeeded()

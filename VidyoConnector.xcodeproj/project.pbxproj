@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,7 @@
 		AC97417E27E28D70007C424C /* BackgroundImages in Resources */ = {isa = PBXBuildFile; fileRef = AC97417D27E28D70007C424C /* BackgroundImages */; };
 		AC97418027E28D83007C424C /* effects in Resources */ = {isa = PBXBuildFile; fileRef = AC97417F27E28D83007C424C /* effects */; };
 		ACE893B627E23E7F008990C3 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACE893B527E23E7F008990C3 /* Photos.framework */; };
+		B449E4F22C20498A007C0F45 /* CertificatesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B449E4F12C20498A007C0F45 /* CertificatesManager.swift */; };
 		F10FE2122665469F00F440A5 /* LoginToolbar.xib in Resources */ = {isa = PBXBuildFile; fileRef = F10FE2112665469F00F440A5 /* LoginToolbar.xib */; };
 		F10FE215266546BA00F440A5 /* LoginToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10FE214266546BA00F440A5 /* LoginToolbar.swift */; };
 		F10FE21C266562D800F440A5 /* BaseJoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10FE21B266562D800F440A5 /* BaseJoinViewController.swift */; };
@@ -206,13 +207,14 @@
 		0C67D3104340FD8D36B848C3 /* Pods-VidyoConnector.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VidyoConnector.release.xcconfig"; path = "Target Support Files/Pods-VidyoConnector/Pods-VidyoConnector.release.xcconfig"; sourceTree = "<group>"; };
 		0F9671E7288E7E3900E23170 /* VidyoInsightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VidyoInsightViewController.swift; sourceTree = "<group>"; };
 		1905E961CD7C651181627E4C /* Pods_VidyoConnector.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VidyoConnector.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AC095B9A294DCC280073A6CB /* BNBEffectPlayerC.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = BNBEffectPlayerC.xcframework; path = "VidyoClient-iOSSDK/lib/ios/Banuba/BNBEffectPlayerC.xcframework"; sourceTree = "<group>"; };
-		AC095B9C294DCC380073A6CB /* VidyoClientIOS.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = VidyoClientIOS.xcframework; path = "VidyoClient-iOSSDK/lib/ios/VidyoClientIOS.xcframework"; sourceTree = "<group>"; };
+		AC095B9A294DCC280073A6CB /* BNBEffectPlayerC.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:6888NB32SR:Vidyo, Inc."; lastKnownFileType = wrapper.xcframework; name = BNBEffectPlayerC.xcframework; path = "VidyoClient-iOSSDK/lib/ios/Banuba/BNBEffectPlayerC.xcframework"; sourceTree = "<group>"; };
+		AC095B9C294DCC380073A6CB /* VidyoClientIOS.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:6888NB32SR:Vidyo, Inc."; lastKnownFileType = wrapper.xcframework; name = VidyoClientIOS.xcframework; path = "VidyoClient-iOSSDK/lib/ios/VidyoClientIOS.xcframework"; sourceTree = "<group>"; };
 		AC97411127E28A3E007C424C /* VidyoConnectorVersion_.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = VidyoConnectorVersion_.sh; sourceTree = "<group>"; };
 		AC97417D27E28D70007C424C /* BackgroundImages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = BackgroundImages; sourceTree = "<group>"; };
 		AC97417F27E28D83007C424C /* effects */ = {isa = PBXFileReference; lastKnownFileType = folder; name = effects; path = "../../VidyoClient-iOSSDK/lib/ios/Banuba/effects"; sourceTree = "<group>"; };
 		ACE893B527E23E7F008990C3 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		ACE893DC27E2406D008990C3 /* VidyoConnector.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VidyoConnector.entitlements; sourceTree = "<group>"; };
+		B449E4F12C20498A007C0F45 /* CertificatesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificatesManager.swift; sourceTree = "<group>"; };
 		ECD19BA9440527CCB8551AAD /* Pods-VidyoConnector.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VidyoConnector.debug.xcconfig"; path = "Target Support Files/Pods-VidyoConnector/Pods-VidyoConnector.debug.xcconfig"; sourceTree = "<group>"; };
 		F10FE2112665469F00F440A5 /* LoginToolbar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginToolbar.xib; sourceTree = "<group>"; };
 		F10FE214266546BA00F440A5 /* LoginToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginToolbar.swift; sourceTree = "<group>"; };
@@ -565,6 +567,7 @@
 		F13A2C05266844770048C395 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				B449E4F12C20498A007C0F45 /* CertificatesManager.swift */,
 				F1918F25268B5C0700E29888 /* ConnectorRelated */,
 				F122360726D8177000C96C08 /* ChatsManager.swift */,
 				F12404F326DD339400A639EB /* CameraBackgroundManager.swift */,
@@ -1241,6 +1244,7 @@
 				F136EF4426C40AFE00936257 /* ChatTableViewCell.swift in Sources */,
 				F122360826D8177000C96C08 /* ChatsManager.swift in Sources */,
 				F1EC6BAE26C98A6400127D66 /* Message.swift in Sources */,
+				B449E4F22C20498A007C0F45 /* CertificatesManager.swift in Sources */,
 				F122360E26D8179200C96C08 /* RemoteShareManager.swift in Sources */,
 				F1969301267B8A4F00A08F88 /* GeneralSettingsOptions.swift in Sources */,
 				F19692FD267B8A3000A08F88 /* SettingsManager.swift in Sources */,

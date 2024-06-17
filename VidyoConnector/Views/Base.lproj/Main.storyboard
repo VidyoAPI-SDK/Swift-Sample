@@ -1087,6 +1087,21 @@ You are not able to send messages.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
                                             </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description text" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mAQ-cI-73T">
+                                                <rect key="frame" x="0.0" y="79.333333333333343" width="378" height="19.333333333333329"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1PT-2a-9e6" customClass="AnalyticsTextField" customModule="VidyoConnector" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="103.66666666666666" width="378" height="50"/>
+                                                <color key="tintColor" red="0.29532188180000002" green="0.86391049620000004" blue="0.38905674220000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="lr4-Xd-vQj"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
+                                            </textField>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="G9Q-mi-gVO">
@@ -1148,11 +1163,13 @@ You are not able to send messages.</string>
                     <connections>
                         <outlet property="applyButton" destination="wOt-NS-tyv" id="wGe-S1-HQg"/>
                         <outlet property="cancelButton" destination="Mae-Sy-Nrc" id="hlD-MW-PuI"/>
-                        <outlet property="descriptionLabel" destination="U1J-5A-zaz" id="ZWF-b8-Ikh"/>
+                        <outlet property="descriptionIdLabel" destination="U1J-5A-zaz" id="3NF-3f-svD"/>
+                        <outlet property="descriptionKeyLabel" destination="mAQ-cI-73T" id="mUb-Mm-aQY"/>
                         <outlet property="errorMessageLabel" destination="jHD-mR-A30" id="uQu-jg-PZ4"/>
                         <outlet property="eventsTableView" destination="Orc-xL-HTw" id="CoE-7f-I3h"/>
                         <outlet property="googleAnalyticsEventsView" destination="eLI-eE-cEm" id="piL-7L-Kue"/>
                         <outlet property="googleanalyticIdTextField" destination="fZ5-oq-4Om" id="Otj-bd-NSw"/>
+                        <outlet property="googleanalyticKeyTextField" destination="1PT-2a-9e6" id="jVm-R3-DQa"/>
                         <outlet property="startGoogleAnalyticsButton" destination="fBA-Bg-8rU" id="CwB-uQ-fkI"/>
                         <outlet property="stopGoogleAnalyticsButton" destination="3dX-y5-Kxc" id="w9t-bl-j7d"/>
                     </connections>
@@ -1451,7 +1468,7 @@ You are not able to send messages.</string>
                                     </mask>
                                 </variation>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright © 2010 – 2021 Vidyo, Inc." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d0k-9J-60e">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright © 2010 – 2023 Vidyo, Inc." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d0k-9J-60e">
                                 <rect key="frame" x="104.33333333333333" y="557" width="219.33333333333337" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="BEM-SL-5fq"/>

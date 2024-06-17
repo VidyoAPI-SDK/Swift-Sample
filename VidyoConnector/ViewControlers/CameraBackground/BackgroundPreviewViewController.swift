@@ -27,12 +27,12 @@ class BackgroundPreviewViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setEffect()
-        updatePreview()
+        updatePreview(show: false)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        updatePreview()
+        updatePreview(show: false)
     }
     
     // MARK: - IBActions
@@ -43,7 +43,7 @@ class BackgroundPreviewViewController: UIViewController {
     }
     
     @IBAction func closeButtonPressed(_ sender: UIButton) {
-        self.connector.hideView(&self.videoView)
+		updatePreview(show: true)
         NotificationCenter.default.post(name: .onBackgroundChose, object: nil)
         dismiss(animated: true, completion: nil)
     }
@@ -57,13 +57,19 @@ class BackgroundPreviewViewController: UIViewController {
         videoView.layer.cornerRadius = 4
     }
     
-    private func updatePreview() {
+	private func updatePreview(show: Bool) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.connector.assignView(&self.videoView, remoteParticipants: 0)
-            self.connector.showView(for: &self.videoView)
-            self.connector.showLabel(false, for: &self.videoView)
-            self.connector.showAudioMeters(false, for: &self.videoView)
+			
+			if (show) {
+				self.connector.hideView(&self.videoView)
+			} else {
+				self.connector.showView(for: &self.videoView)
+			}
+            
+            self.connector.showLabel(show, for: &self.videoView)
+            self.connector.showAudioMeters(show, for: &self.videoView)
         }
     }
     

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import VidyoClientIOS
 
 let chatManager = ChatsManager.shared
 

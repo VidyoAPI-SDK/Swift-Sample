@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import VidyoClientIOS
 
 struct RemoteControllableCamera: Equatable {
     let id: String

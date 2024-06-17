@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import VidyoClientIOS
 
 class AnalyticsManager {
     let connector = ConnectorManager.shared.connector
@@ -14,8 +15,8 @@ class AnalyticsManager {
         connector.googleAnalyticsControlEventAction(category, eventAction: action, enable: enable)
     }
 
-    func startGoogleAnalyticsService(withEnteredData data: String) -> Bool {
-        return connector.startGoogleAnalyticsService(data)
+    func startGoogleAnalyticsService(withOptions options: VCConnectorGoogleAnalyticsOptions?) -> Bool {
+        return connector.startGoogleAnalyticsService(options)
     }
 
     func startInsightsService(withEnteredData data: String) -> Bool {
@@ -38,19 +39,28 @@ class AnalyticsManager {
         return connector.isInsightsServiceEnabled()
     }
 
-    func getGoogleAnalyticsServiceId() -> String {
-        return connector.getGoogleAnalyticsServiceID()
+    func getGoogleAnalyticOptions(_ object: VCConnectorIGetGoogleAnalyticsOptions) {
+        connector.getGoogleAnalyticsOptions(object)
     }
 
     func getInsightsServiceUrl() -> String {
         return connector.getInsightsServiceUrl()
     }
 
-    static func getDefaultGoogleAnalyticId() -> String {
-        var googleAnalyticId = ""
-        if let infoPlistPath = Bundle.main.path(forResource: "Info", ofType: "plist") {
-            googleAnalyticId = NSDictionary(contentsOfFile: infoPlistPath)?.value(forKey: "GoogleAnalyticId") as? String ?? ""
+    static func getDefaultGoogleAnalyticOptions() -> VCConnectorGoogleAnalyticsOptions? {
+        var options:VCConnectorGoogleAnalyticsOptions?
+
+        if let plist = Bundle.main.path(forResource: "Info", ofType: "plist") {
+            let id = NSDictionary(contentsOfFile: plist)?.value(forKey: "GoogleAnalyticId") as? NSMutableString
+            let key = NSDictionary(contentsOfFile: plist)?.value(forKey: "GoogleAnalyticKey") as? NSMutableString
+
+            if (id != nil && key != nil) {
+                options = VCConnectorGoogleAnalyticsOptions()
+
+                options?.id = id
+                options?.key = key
+            }
         }
-        return googleAnalyticId
+        return options
     }
 }

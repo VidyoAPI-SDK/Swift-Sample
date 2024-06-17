@@ -7,6 +7,7 @@
 
 import Foundation
 import DevicePpi
+import VidyoClientIOS
 
 class ConnectorManager {
       
@@ -33,6 +34,11 @@ class ConnectorManager {
             logFileName: "\(Constants.LogsFile.pathString)/\(Constants.LogsFile.name)",
             userData: 0
         )
+
+        let certificates = CertificatesManager.getDefaultCertificates()
+        if (!certificates.isEmpty && !connector.setCertificateAuthorityList(certificates.cString(using: .utf8))) {
+            log.info("Failed to set certificate authority list")
+        }
     }
     
     func getDevicePpi() -> Double{

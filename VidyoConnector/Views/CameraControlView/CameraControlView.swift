@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import VidyoClientIOS
 
 class CameraControlView: UIView {
     enum ControlAction: Int {

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import VidyoClientIOS
 
 class ConferenceViewController: UIViewController {
 

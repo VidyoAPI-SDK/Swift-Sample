@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import VidyoClientIOS
 
 enum GeneralSettingsOption: String, CaseIterable {
     case cpuProfile = "CPU Profile"

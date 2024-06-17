@@ -8,7 +8,7 @@
 import UIKit
 
 // MARK: - ImagePickerDelegate
-protocol ImagePickerDelegate: class {
+protocol ImagePickerDelegate: AnyObject {
     func didSelect(image: UIImage?, path: String?)
 }
 

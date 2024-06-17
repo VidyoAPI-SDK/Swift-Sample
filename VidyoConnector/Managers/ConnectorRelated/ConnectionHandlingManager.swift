@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import VidyoClientIOS
 
 class ConnectionHandlingManager {
     let connector = ConnectorManager.shared.connector
