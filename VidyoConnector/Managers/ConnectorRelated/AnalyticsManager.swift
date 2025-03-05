@@ -63,4 +63,16 @@ class AnalyticsManager {
         }
         return options
     }
+    
+    static func getDefaultInsightServerUrl() -> String {
+
+        if let plist = Bundle.main.path(forResource: "Info", ofType: "plist") {
+            let url = NSDictionary(contentsOfFile: plist)?.value(forKey: "insightServerUrl") as? NSMutableString
+
+            if (url != nil) {
+                return url! as String;
+            }
+        }
+        return "";
+    }
 }

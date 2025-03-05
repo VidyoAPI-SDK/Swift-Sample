@@ -21,7 +21,11 @@
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>GoogleAnalyticId</key>
-	<string>UA-152837139-2</string>
+	<string>G-B3J86W90SG</string>
+	<key>GoogleAnalyticKey</key>
+	<string>y_UGAwkhT4aoSGqRvsqnbg</string>
+	<key>insightServerUrl</key>
+	<string>https://vis-qa-01-loki.vidyoclouddev.com/loki/api/v1/push</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>

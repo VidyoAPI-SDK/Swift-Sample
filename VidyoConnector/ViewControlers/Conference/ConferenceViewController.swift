@@ -128,6 +128,11 @@ class ConferenceViewController: UIViewController {
         guard connectionManager.connectionState == .disconnected else { return }
         presentLoadingVC()
         
+        let analyticsManager = SettingsManager.shared.analyticsManager
+        if (AnalyticsManager.getDefaultInsightServerUrl().isEmpty == false && analyticsManager.isInsightsServiceEnabled() == false) {
+            analyticsManager.startInsightsService(withEnteredData: AnalyticsManager.getDefaultInsightServerUrl());
+        }
+        
         if let guestParams = connectParams as? GuestData {
             connectionManager.connectToRoom(withData: guestParams)
         } else if let userParams = connectParams as? UserData {
