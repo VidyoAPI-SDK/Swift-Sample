@@ -95,7 +95,7 @@ class RemoteCameraManager {
         
         let cameraToControl = RemoteControllableCamera(
             id: participant.getId(),
-            partisipantName: participant.getName(),
+            participantName: participant.getName(),
             remoteCamera: camera,
             controlCapabilities: controlCapabilities
         )

@@ -10,13 +10,14 @@ import VidyoClientIOS
 
 protocol LocalDeviceStateUpdatedDelegate: AnyObject {
     func onLocalDeviceStateUpdated(type: PreferencesOption, state: VCDeviceState)
+    func onOtherDeviceStateUpdated(type: PreferencesOption, state: DeviceState)
 }
 
 class SettingsManager {
     
     static let shared = SettingsManager()
     
-    private let cameraConfiguration = CameraConfigurationManager()
+    private let cameraConfiguration = CameraConfigurationManager.shared
     private let audioConfiguration = AudioConfigurationManager()
     private let networkManager = NetworkInterfaceManager()
     
@@ -28,12 +29,14 @@ class SettingsManager {
         SettingsOptionCell(title: .audio, iconName: Constants.Icon.audio, isEnabled: true),
         SettingsOptionCell(title: .video, iconName: Constants.Icon.video, isEnabled: true),
         SettingsOptionCell(title: .logs, iconName: Constants.Icon.logs, isEnabled: true),
+        SettingsOptionCell(title: .renderer, iconName: Constants.Icon.renderer, isEnabled: true),
         SettingsOptionCell(title: .about, iconName: Constants.Icon.info, isEnabled: true)
     ]
     
     private lazy var generalData = [SettingsSection]()
     private lazy var audioData = [SettingsSection]()
     private lazy var videoData = [SettingsSection]()
+    private lazy var rendererData = [SettingsSection]()
     
     private var isOptionEnableDuringCall: Bool {
         switch ConnectorManager.shared.connectionManager.connectionState {
@@ -48,6 +51,7 @@ class SettingsManager {
     func setDelegate(_ delegate: LocalDeviceStateUpdatedDelegate) {
         audioConfiguration.delegate = delegate
 		cameraConfiguration.delegate = delegate
+        cameraConfiguration.updateTorchStatus();
     }
     
     func getMainOptinsData() -> [SettingsOptionCell] {
@@ -62,6 +66,8 @@ class SettingsManager {
             return audioData
         case .video:
             return videoData
+        case .renderer:
+            return rendererData
         default:
             return nil
         }
@@ -78,6 +84,9 @@ class SettingsManager {
         case .video:
             guard let optionType = VideoSettingsOption(rawValue: title) else { return nil }
             return getVideoOptionsToChoose(forCase: optionType)
+        case .renderer:
+            guard let optionType = RendererSettingsOption(rawValue: title) else { return nil }
+            return getRendererOptionsToChoose(forCase: optionType)
         default:
             return nil
         }
@@ -104,6 +113,9 @@ class SettingsManager {
         case .video:
             guard let optionType = VideoSettingsOption(rawValue: title) else { return false }
             return setNewValuesForVideoIfPossible(array, optionIndex: optionIndex, forCase: optionType)
+        case .renderer:
+            guard let optionType = RendererSettingsOption(rawValue: title) else { return false }
+            return setNewValuesForRendererIfPossible(array, optionIndex: optionIndex, forCase: optionType)
         case .logs:
             return setNewLogLevelIfPossible(array, optionIndex: optionIndex)
         default:
@@ -119,6 +131,22 @@ class SettingsManager {
         case .disableVideoOnPoorConnection:
             guard cameraConfiguration.disableVideoOnPoorConnection(withValue: isOn) else { return false }
             VideoSettingsOption.options.switchToggle(forTitle: .disableVideoOnPoorConnection, withValue: isOn)
+        case .debugInfoVisible:
+            RendererSettingsOption.options.switchToggle(forTitle: .debugInfoVisible, withValue: isOn)
+        case .labelVisible:
+            RendererSettingsOption.options.switchToggle(forTitle: .labelVisible, withValue: isOn)
+        case .audioMeterVisible:
+            RendererSettingsOption.options.switchToggle(forTitle: .audioMeterVisible, withValue: isOn)
+        case .previewMirroringEnable:
+            RendererSettingsOption.options.switchToggle(forTitle: .previewMirroringEnable, withValue: isOn)
+        case .showAudioTiles:
+            RendererSettingsOption.options.switchToggle(forTitle: .showAudioTiles, withValue: isOn)
+        case .expandedCameraControl:
+            RendererSettingsOption.options.switchToggle(forTitle: .expandedCameraControl, withValue: isOn)
+        case .feccIconCustomLayout:
+            RendererSettingsOption.options.switchToggle(forTitle: .feccIconCustomLayout, withValue: isOn)
+        case .verticalVideoCentering:
+            RendererSettingsOption.options.switchToggle(forTitle: .verticalVideoCentering, withValue: isOn)
         }
         return true
     }
@@ -131,6 +159,8 @@ class SettingsManager {
             updateAudioSettingsData()
         case .video:
             updateVideoSettingsData()
+        case .renderer:
+            updateRendereSettingsData()
         default: return
         }
     }
@@ -157,6 +187,8 @@ class SettingsManager {
             return GeneralSettingsOption.options.participants
         case .selfView:
             return GeneralSettingsOption.options.selfView
+        case .borderStyle:
+            return GeneralSettingsOption.options.borderStyle
         case .reconnectAttempts:
             return GeneralSettingsOption.options.reconnectAttempts
         case .reconnectBackTime:
@@ -189,6 +221,9 @@ class SettingsManager {
         case .selfView:
             GeneralSettingsOption.options.selfView = array
             
+        case .borderStyle:
+            GeneralSettingsOption.options.borderStyle = array
+            
         case .reconnectAttempts:
             guard let numberToSet = UInt32(array[optionIndex].title.digits) else { return false }
             guard ConnectorManager.shared.connectionManager.setAutoReconnectMaxAttempts(numberToSet) else { return false }
@@ -216,7 +251,8 @@ class SettingsManager {
                 ChooseOptionCell(accessType: .chose, title: GeneralSettingsOption.networkSignaling.rawValue, options: networksForSignaling, isEnabled: !isOptionEnableDuringCall),
                 ChooseOptionCell(accessType: .chose, title: GeneralSettingsOption.networkMedia.rawValue, options: networksForMedia, isEnabled: !isOptionEnableDuringCall),
                 ChooseOptionCell(accessType: .pick, title: GeneralSettingsOption.participants.rawValue, options: GeneralSettingsOption.options.participants, isEnabled: true),
-                ChooseOptionCell(accessType: .chose, title: GeneralSettingsOption.selfView.rawValue, options: GeneralSettingsOption.options.selfView, isEnabled: false)
+                ChooseOptionCell(accessType: .chose, title: GeneralSettingsOption.selfView.rawValue, options: GeneralSettingsOption.options.selfView, isEnabled: true),
+                ChooseOptionCell(accessType: .chose, title: GeneralSettingsOption.borderStyle.rawValue, options: GeneralSettingsOption.options.borderStyle, isEnabled: true)
             ])
         ]
         // Append Auto Reconnect section
@@ -425,5 +461,112 @@ class SettingsManager {
                 ChooseOptionCell(accessType: .input, title: VideoSettingsOption.receive.rawValue, options: VideoSettingsOption.options.receive, isEnabled: true)
             ])
         )
+    }
+    
+    // MARK: - Renderer
+    private func getRendererOptionsToChoose(forCase option: RendererSettingsOption) -> [OptionToChoose]? {
+        switch option {
+        case .renderer:
+            return RendererSettingsOption.options.renderer
+        case .layout:
+            return RendererSettingsOption.options.layout
+        default:
+            return nil
+        }
+    }
+    
+    private func setNewValuesForRendererIfPossible(_ array: [OptionToChoose], optionIndex: Int, forCase optionType: RendererSettingsOption) -> Bool {
+        switch optionType {
+        case .renderer:
+            guard let chosen = array.filter({ $0.isChosen }).first, let renderer = RendererType(rawValue: chosen.title) else {
+                return false
+            }
+            DefaultValuesManager.shared.renderer = renderer
+            
+        case .layout:
+            guard let chosen = array.filter({ $0.isChosen }).first, let layout = LayoutType(rawValue: chosen.title) else {
+                return false
+            }
+            DefaultValuesManager.shared.layout = layout
+            
+        default:
+            return false
+        }
+        return true
+    }
+    
+    private func updateRendereSettingsData() {
+        rendererData = [
+            SettingsSection(
+                headerTitle: .general,
+                options: [
+                    ChooseOptionCell(
+                        accessType: .chose,
+                        title: RendererSettingsOption.renderer.rawValue,
+                        options: RendererSettingsOption.options.renderer,
+                        isEnabled: false
+                    ),
+                    ChooseOptionCell(
+                        accessType: .chose,
+                        title: RendererSettingsOption.layout.rawValue,
+                        options: RendererSettingsOption.options.layout,
+                        isEnabled: DefaultValuesManager.shared.renderer == .ngr
+                    ),
+                ]
+            ),
+            SettingsSection(
+                headerTitle: .conference,
+                options: [
+                    ChooseOptionCell(
+                        accessType: .toggle,
+                        title: RendererSettingsOption.debugInfoVisible.rawValue,
+                        options: RendererSettingsOption.options.debugInfoVisible,
+                        isEnabled: true
+                    ),
+                    ChooseOptionCell(
+                        accessType: .toggle,
+                        title: RendererSettingsOption.labelVisible.rawValue,
+                        options: RendererSettingsOption.options.labelVisible,
+                        isEnabled: true
+                    ),
+                    ChooseOptionCell(
+                        accessType: .toggle,
+                        title: RendererSettingsOption.audioMeterVisible.rawValue,
+                        options: RendererSettingsOption.options.audioMeterVisible,
+                        isEnabled: true
+                    ),
+                    ChooseOptionCell(
+                        accessType: .toggle,
+                        title: RendererSettingsOption.previewMirroringEnable.rawValue,
+                        options: RendererSettingsOption.options.previewMirroringEnable,
+                        isEnabled: true
+                    ),
+                    ChooseOptionCell(
+                        accessType: .toggle,
+                        title: RendererSettingsOption.showAudioTiles.rawValue,
+                        options: RendererSettingsOption.options.showAudioTiles,
+                        isEnabled: !isOptionEnableDuringCall
+                    ),
+                    ChooseOptionCell(
+                        accessType: .toggle,
+                        title: RendererSettingsOption.expandedCameraControl.rawValue,
+                        options: RendererSettingsOption.options.expandedCameraControl,
+                        isEnabled: false
+                    ),
+                    ChooseOptionCell(
+                        accessType: .toggle,
+                        title: RendererSettingsOption.feccIconCustomLayout.rawValue,
+                        options: RendererSettingsOption.options.feccIconCustomLayout,
+                        isEnabled: true
+                    ),
+                    ChooseOptionCell(
+                        accessType: .toggle,
+                        title: RendererSettingsOption.verticalVideoCentering.rawValue,
+                        options: RendererSettingsOption.options.verticalVideoCentering,
+                        isEnabled: true
+                    )
+                ]
+            )
+        ]
     }
 }

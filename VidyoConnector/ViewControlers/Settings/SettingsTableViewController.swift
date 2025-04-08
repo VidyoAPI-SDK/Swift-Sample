@@ -39,6 +39,13 @@ class SettingsTableViewController: UITableViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    private func pushVidyoRendererViewController(forIndex index: Int) {
+        let factory = InstantiateFromStoryboardFactory()
+        let renderer: RendererOptionsTableViewController = factory.instantiateFromStoryboard()
+        renderer.settingsType = settingsMainOptions[index].title
+        navigationController?.pushViewController(renderer, animated: true)
+    }
+    
     private func pushViewController<T:UIViewController>(type: T.Type) {
         let vc: T = InstantiateFromStoryboardFactory().instantiateFromStoryboard()
         self.navigationController?.pushViewController(vc, animated: true)
@@ -69,6 +76,8 @@ class SettingsTableViewController: UITableViewController {
             pushViewController(type: LogsViewController.self)
         case .about:
             pushViewController(type: AboutViewController.self)
+        case .renderer:
+            pushVidyoRendererViewController(forIndex: indexPath.row)
         default:
             log.info("Ooops, found unreachable option for now.")
         }

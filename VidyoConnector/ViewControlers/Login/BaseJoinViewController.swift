@@ -9,7 +9,7 @@ import UIKit
 
 class BaseJoinViewController: UIViewController {
     
-    let connector = ConnectorManager.shared
+    let renderer = RendererManager.shared
     let loginToolbar = LoginToolbar.loadFromNib()
     var videoViewForConnector = UIView()
     
@@ -24,21 +24,30 @@ class BaseJoinViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupInitialViewOfUI()
+        SettingsManager.shared.setDelegate(loginToolbar)
+    }
+    
+    func updateViewSize() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.renderer.setViewSize(&self.videoViewForConnector, self.videoViewForConnector.frame)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        updatePreview()
+        self.renderer.showPreviewView(&self.videoViewForConnector)
+        updateViewSize()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        hidePreview()
+        self.renderer.hideView(&self.videoViewForConnector)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        updatePreview()
+        updateViewSize()
     }
     
     deinit {
@@ -50,20 +59,14 @@ class BaseJoinViewController: UIViewController {
     func setupInitialViewOfUI() {}
     func refreshJoinButtonIfNeeded() {}
     
-    @objc private func onBackgroundOpenned() {
-        hidePreview()
-    }
-    
     @objc private func onBackgroundChose() {
         DispatchQueue.main.async {
             self.loginToolbar.updateBackgroundButton()
         }
-        updatePreview()
     }
     
     func addObservers() {
         observe(.onBackgroundChose, #selector(onBackgroundChose))
-        observe(.onBackgroundOpenned, #selector(onBackgroundOpenned))
     }
     
     func addToolbar() {
@@ -77,28 +80,11 @@ class BaseJoinViewController: UIViewController {
         navigationController?.toolbar.addSubview(loginToolbar)
     }
     
-    func updatePreview() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.connector.assignView(&self.videoViewForConnector, remoteParticipants: 0)
-            self.connector.showLabel(false, for: &self.videoViewForConnector)
-            self.connector.showView(for: &self.videoViewForConnector)
-        }
-    }
-    
-    func hidePreview() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.connector.hideView(&self.videoViewForConnector)
-        }
-    }
-    
     func presentConferenceVC(witData connectData: ConnectionData) {
         let factory = InstantiateFromStoryboardFactory()
         let conferenceVC: ConferenceViewController = factory.instantiateFromStoryboard()
         conferenceVC.connectParams = connectData
         conferenceVC.modalPresentationStyle = .fullScreen
-        
         self.present(conferenceVC, animated: true, completion: nil)
     }
 }

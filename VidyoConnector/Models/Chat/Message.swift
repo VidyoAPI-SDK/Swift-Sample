@@ -16,7 +16,7 @@ struct Message: MessageProtocol {
     var date: Date
     
     var senderID: String {
-        guard let id = sender?.userId else { return "" }
+        guard let id = sender?.id else { return "" }
         return String(id)
     }
     var senderName: String {

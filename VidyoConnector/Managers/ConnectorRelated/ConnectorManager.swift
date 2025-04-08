@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import DevicePpi
 import VidyoClientIOS
 
 class ConnectorManager {
@@ -17,17 +16,16 @@ class ConnectorManager {
     private var preferences = PreferencesManager.shared
     lazy var connectionManager = ConnectionHandlingManager()
     lazy var participantManager = ParticipantsManager()
-    var participantsNumber: UInt32
+    public var participantsNumber: UInt32
     
     var version: String {
         connector.getVersion()
     }
     
     private init() {
-        var defaultView: UIView?
         participantsNumber = 5
         connector = VCConnector(
-            &defaultView,
+            nil,
             viewStyle: .default,
             remoteParticipants: participantsNumber,
             logFileFilter: "".cString(using: .utf8),
@@ -39,59 +37,6 @@ class ConnectorManager {
         if (!certificates.isEmpty && !connector.setCertificateAuthorityList(certificates.cString(using: .utf8))) {
             log.info("Failed to set certificate authority list")
         }
-    }
-    
-    func getDevicePpi() -> Double{
-        let ppi: Double = {
-            switch Ppi.get() {
-                case .success(let ppi):
-                     return ppi
-                case .unknown(let bestGuessPpi, _):
-                     // A bestGuessPpi value is provided but may be incorrect
-                     // Treat as a non-fatal error -- e.g. log to your backend and/or display a message
-                     return bestGuessPpi
-                }
-            }()
-        return ppi;
-	}
-
-    func assignView(_ view: inout UIView, remoteParticipants: UInt32? = nil) {
-        let participants: UInt32 = remoteParticipants ?? participantsNumber
-        connector.assignView(
-            toCompositeRenderer: &view,
-            viewStyle: .default,
-            remoteParticipants: participants
-        )
-        
-        var option = "{\"SetPixelDensity\":";
-        option.append("\(getDevicePpi() )");
-        option.append(",\"ViewingDistance\":1.0}");
-        
-        if(connector.setRendererOptionsForViewId(&view, options:option) == false) {
-            log.info("Failed to set renderer option for view id")
-        }
-    }
-    
-    func showLabel(_ showLabel: Bool, for videoView: inout UIView) {
-        connector.showViewLabel(&videoView, showLabel: showLabel)
-    }
-    
-    func showView(for videoView: inout UIView) {
-        connector.showView(
-            at: &videoView,
-            x: 0,
-            y: 0,
-            width: UInt32(videoView.frame.size.width),
-            height: UInt32(videoView.frame.size.height)
-        )
-    }
-    
-    func showAudioMeters(_ showMeters: Bool, for videoView: inout UIView) {
-        connector.showAudioMeters(&videoView, showMeters: showMeters)
-    }
-    
-    func hideView(_ videoView: inout UIView) {
-        connector.hideView(&videoView)
     }
     
     func changeDevicePrivacy(forOption option: PreferencesOption, specificState: Bool? = nil) {
@@ -106,6 +51,10 @@ class ConnectorManager {
         case .camera:
             guard connector.setCameraPrivacy(isMuted) else { return }
             preferences.swapStates(for: .camera)
+        case .torch:
+            preferences.swapStates(for: .torch)
+            CameraConfigurationManager.shared.setTorchMode(isMute: isMuted)
+            break;
         }
     }
     

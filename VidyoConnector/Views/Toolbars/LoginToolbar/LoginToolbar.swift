@@ -48,7 +48,6 @@ class LoginToolbar: UIToolbar {
     }
     
     @IBAction func chooseBgBarButtonPressed(_ sender: UIBarButtonItem) {
-        NotificationCenter.default.post(name: .onBackgroundOpenned, object: nil)
         backgroundBarButton.image = UIImage(named: Constants.Icon.backgroundActive)
         let factory = InstantiateFromStoryboardFactory()
         let nc: UINavigationController = factory.instantiateNavigationController(with: .backgroundNC)
@@ -72,5 +71,8 @@ extension LoginToolbar: LocalDeviceStateUpdatedDelegate {
     func onLocalDeviceStateUpdated(type: PreferencesOption, state: VCDeviceState) {
         preferences.handleStateUpdated(type: type, state: state)
         updatePreferenceImages()
+    }
+    
+    func onOtherDeviceStateUpdated(type: PreferencesOption, state: DeviceState) {
     }
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="O1V-L5-VQk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="O1V-L5-VQk">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20019"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -13,9 +13,9 @@
         <!--Join As Guest View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="JoinAsGuestViewController" customModule="VidyoConnector_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="JoinAsGuestViewController" customModule="VidyoConnector" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="428" height="843"/>
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Wc-8l-VVx">
@@ -43,7 +43,7 @@ Please enter the details below to join the call as guest or sign in if you have 
                                             <stackView opaque="NO" contentMode="scaleAspectFill" axis="vertical" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="9xh-Cd-KPZ">
                                                 <rect key="frame" x="40" y="182.33333333333337" width="348" height="208"/>
                                                 <subviews>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Portal address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ilh-1W-NcG" customClass="LoginTextField" customModule="VidyoConnector_iOS" customModuleProvider="target">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Portal address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ilh-1W-NcG" customClass="LoginTextField" customModule="VidyoConnector" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="348" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="LEg-mO-S3E"/>
@@ -51,17 +51,17 @@ Please enter the details below to join the call as guest or sign in if you have 
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     </textField>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Display Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LOe-9d-paO" customClass="LoginTextField" customModule="VidyoConnector_iOS" customModuleProvider="target">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Display Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LOe-9d-paO" customClass="LoginTextField" customModule="VidyoConnector" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="55.999999999999972" width="348" height="40"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     </textField>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Room Key" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JLD-2S-tVU" customClass="LoginTextField" customModule="VidyoConnector_iOS" customModuleProvider="target">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Room Key" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JLD-2S-tVU" customClass="LoginTextField" customModule="VidyoConnector" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="111.99999999999997" width="348" height="40"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     </textField>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Room Pin" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DTa-hO-opM" customClass="LoginTextField" customModule="VidyoConnector_iOS" customModuleProvider="target">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Room Pin" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DTa-hO-opM" customClass="LoginTextField" customModule="VidyoConnector" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="167.99999999999997" width="348" height="40"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
@@ -151,15 +151,15 @@ Please enter the details below to join the call as guest or sign in if you have 
                                         </constraints>
                                         <variation key="widthClass=regular">
                                             <mask key="constraints">
-                                                <include reference="pTv-Oh-TtG"/>
                                                 <include reference="vxV-pR-4b1"/>
-                                                <include reference="aye-uD-FrU"/>
+                                                <include reference="pTv-Oh-TtG"/>
                                                 <include reference="nq6-fE-Rw1"/>
+                                                <include reference="aye-uD-FrU"/>
                                                 <include reference="A1m-8L-yJl"/>
                                                 <include reference="OFJ-vv-2x8"/>
                                                 <include reference="cqm-4y-Mjm"/>
-                                                <include reference="JhV-bm-v3n"/>
                                                 <include reference="LUt-j1-Onj"/>
+                                                <include reference="JhV-bm-v3n"/>
                                             </mask>
                                         </variation>
                                     </view>
@@ -209,9 +209,9 @@ Please enter the details below to join the call as guest or sign in if you have 
         <!--Join As Registered View Controller-->
         <scene sceneID="OaA-1l-ojM">
             <objects>
-                <viewController id="hB9-ab-gZm" customClass="JoinAsRegisteredViewController" customModule="VidyoConnector_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="hB9-ab-gZm" customClass="JoinAsRegisteredViewController" customModule="VidyoConnector" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="T3I-VE-emB">
-                        <rect key="frame" x="0.0" y="0.0" width="428" height="843"/>
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oaK-AY-vfE">
@@ -238,7 +238,7 @@ Please enter the details below to join the call as guest or sign in if you have 
                                             <stackView opaque="NO" contentMode="scaleAspectFill" axis="vertical" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="NSv-aM-Bwl">
                                                 <rect key="frame" x="40" y="100" width="348" height="264"/>
                                                 <subviews>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Portal address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lLB-vY-z4z" customClass="LoginTextField" customModule="VidyoConnector_iOS" customModuleProvider="target">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Portal address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lLB-vY-z4z" customClass="LoginTextField" customModule="VidyoConnector" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="348" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="cll-l2-zjJ"/>
@@ -246,22 +246,22 @@ Please enter the details below to join the call as guest or sign in if you have 
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     </textField>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dBh-Ue-Fdb" customClass="LoginTextField" customModule="VidyoConnector_iOS" customModuleProvider="target">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dBh-Ue-Fdb" customClass="LoginTextField" customModule="VidyoConnector" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="56" width="348" height="40"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" textContentType="username"/>
                                                     </textField>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EPt-Ms-0rd" customClass="LoginTextField" customModule="VidyoConnector_iOS" customModuleProvider="target">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EPt-Ms-0rd" customClass="LoginTextField" customModule="VidyoConnector" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="112" width="348" height="40"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES" textContentType="password"/>
                                                     </textField>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Room Key" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="d5u-SV-u8e" customClass="LoginTextField" customModule="VidyoConnector_iOS" customModuleProvider="target">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Room Key" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="d5u-SV-u8e" customClass="LoginTextField" customModule="VidyoConnector" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="168" width="348" height="40"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     </textField>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Room Pin" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JLw-co-ZRt" customClass="LoginTextField" customModule="VidyoConnector_iOS" customModuleProvider="target">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Room Pin" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JLw-co-ZRt" customClass="LoginTextField" customModule="VidyoConnector" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="224" width="348" height="40"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
@@ -318,12 +318,12 @@ Please enter the details below to join the call as guest or sign in if you have 
                                         </constraints>
                                         <variation key="widthClass=regular">
                                             <mask key="constraints">
-                                                <include reference="Wdd-UT-s5u"/>
                                                 <include reference="lNy-qp-dpb"/>
-                                                <include reference="00e-dH-v72"/>
+                                                <include reference="Wdd-UT-s5u"/>
                                                 <include reference="PQl-5o-M0Y"/>
-                                                <include reference="ith-fQ-wxL"/>
+                                                <include reference="00e-dH-v72"/>
                                                 <include reference="wlM-sP-z9y"/>
+                                                <include reference="ith-fQ-wxL"/>
                                             </mask>
                                         </variation>
                                     </view>
@@ -370,13 +370,11 @@ Please enter the details below to join the call as guest or sign in if you have 
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="O1V-L5-VQk" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="Qd6-b6-Grv">
-                        <rect key="frame" x="0.0" y="44" width="428" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="7vj-Vk-a7X">
-                        <rect key="frame" x="0.0" y="843" width="428" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -393,7 +391,7 @@ Please enter the details below to join the call as guest or sign in if you have 
         <!--Conference View Controller-->
         <scene sceneID="wKC-na-chu">
             <objects>
-                <viewController storyboardIdentifier="ConferenceViewController" id="8s1-6R-Txe" customClass="ConferenceViewController" customModule="VidyoConnector_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ConferenceViewController" id="8s1-6R-Txe" customClass="ConferenceViewController" customModule="VidyoConnector" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Q0i-lv-oRo">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -475,7 +473,7 @@ Please enter the details below to join the call as guest or sign in if you have 
                         <viewLayoutGuide key="safeArea" id="hsm-1f-epX"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="kEN-Ai-v9A" firstAttribute="top" secondItem="Q0i-lv-oRo" secondAttribute="top" id="4y1-nF-wYH"/>
+                            <constraint firstItem="kEN-Ai-v9A" firstAttribute="top" secondItem="hsm-1f-epX" secondAttribute="top" id="4y1-nF-wYH"/>
                             <constraint firstItem="kEN-Ai-v9A" firstAttribute="trailing" secondItem="hsm-1f-epX" secondAttribute="trailing" id="8HA-1H-m7T"/>
                             <constraint firstItem="kEN-Ai-v9A" firstAttribute="leading" secondItem="hsm-1f-epX" secondAttribute="leading" id="E60-wO-jiN"/>
                             <constraint firstItem="I9l-ax-6qx" firstAttribute="top" secondItem="kEN-Ai-v9A" secondAttribute="bottom" id="FdT-38-I3C"/>
@@ -500,7 +498,7 @@ Please enter the details below to join the call as guest or sign in if you have 
         <!--Chat List View Controller-->
         <scene sceneID="OHI-uI-aZB">
             <objects>
-                <viewController storyboardIdentifier="ChatListViewController" id="9eO-qC-BcZ" customClass="ChatListViewController" customModule="VidyoConnector_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChatListViewController" id="9eO-qC-BcZ" customClass="ChatListViewController" customModule="VidyoConnector" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gI0-M9-8Qz">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -530,7 +528,7 @@ Please enter the details below to join the call as guest or sign in if you have 
                             <stackView opaque="NO" contentMode="scaleAspectFit" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="UGS-95-4Yx">
                                 <rect key="frame" x="16" y="112" width="396" height="40"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FEj-Ag-x4u" customClass="ChatSearchTextField" customModule="VidyoConnector_iOS" customModuleProvider="target">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FEj-Ag-x4u" customClass="ChatSearchTextField" customModule="VidyoConnector" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="336" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="Zjg-8f-Sjk"/>
@@ -586,7 +584,7 @@ Please enter the details below to join the call as guest or sign in if you have 
         <!--Background Preview View Controller-->
         <scene sceneID="jnY-HM-ti5">
             <objects>
-                <viewController id="oM7-dl-f0k" customClass="BackgroundPreviewViewController" customModule="VidyoConnector_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="oM7-dl-f0k" customClass="BackgroundPreviewViewController" customModule="VidyoConnector" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nDH-yq-7Gd">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -723,7 +721,7 @@ Please enter the details below to join the call as guest or sign in if you have 
         <!--Choose Background View Controller-->
         <scene sceneID="dGg-Ze-bTS">
             <objects>
-                <viewController storyboardIdentifier="ChooseBackgroundViewController" id="7by-qW-HHQ" customClass="ChooseBackgroundViewController" customModule="VidyoConnector_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChooseBackgroundViewController" id="7by-qW-HHQ" customClass="ChooseBackgroundViewController" customModule="VidyoConnector" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zLh-We-a2v">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -810,7 +808,7 @@ Please enter the details below to join the call as guest or sign in if you have 
         <!--Chat View Controller-->
         <scene sceneID="7ak-fj-pqy">
             <objects>
-                <viewController storyboardIdentifier="ChatViewController" id="Iuk-ZR-tW7" customClass="ChatViewController" customModule="VidyoConnector_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChatViewController" id="Iuk-ZR-tW7" customClass="ChatViewController" customModule="VidyoConnector" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pjE-cK-Pzl">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -942,9 +940,9 @@ You are not able to send messages.</string>
         <!--Settings-->
         <scene sceneID="h9d-B1-1us">
             <objects>
-                <tableViewController id="smO-Gs-ELt" customClass="SettingsTableViewController" customModule="VidyoConnector_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="smO-Gs-ELt" customClass="SettingsTableViewController" customModule="VidyoConnector" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="vu0-Sf-JKc">
-                        <rect key="frame" x="0.0" y="0.0" width="428" height="838"/>
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
@@ -981,7 +979,7 @@ You are not able to send messages.</string>
         <!--General-->
         <scene sceneID="H0C-4X-8xD">
             <objects>
-                <tableViewController storyboardIdentifier="MainOptionsTableViewController" id="gle-UF-AYa" customClass="MainOptionsTableViewController" customModule="VidyoConnector_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="MainOptionsTableViewController" id="gle-UF-AYa" customClass="MainOptionsTableViewController" customModule="VidyoConnector" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="oie-4m-Nbl">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1012,7 +1010,7 @@ You are not able to send messages.</string>
         <!--Google Analytics View Controller-->
         <scene sceneID="2Uk-ZU-w0V">
             <objects>
-                <viewController storyboardIdentifier="GoogleAnalyticsViewController" id="6Lt-R7-BSG" customClass="GoogleAnalyticsViewController" customModule="VidyoConnector_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GoogleAnalyticsViewController" id="6Lt-R7-BSG" customClass="GoogleAnalyticsViewController" customModule="VidyoConnector" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3sl-9l-D5M">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1078,7 +1076,7 @@ You are not able to send messages.</string>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fZ5-oq-4Om" customClass="AnalyticsTextField" customModule="VidyoConnector_iOS" customModuleProvider="target">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fZ5-oq-4Om" customClass="AnalyticsTextField" customModule="VidyoConnector" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="24.333333333333329" width="378" height="50"/>
                                                 <color key="tintColor" red="0.29532188180000002" green="0.86391049620000004" blue="0.38905674220000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
@@ -1184,7 +1182,6 @@ You are not able to send messages.</string>
                 <navigationController storyboardIdentifier="SettingsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Wxk-9D-3aH" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="nVe-HB-kq8">
-                        <rect key="frame" x="0.0" y="44" width="428" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" name="AccentColor"/>
@@ -1207,7 +1204,7 @@ You are not able to send messages.</string>
         <!--Input Value View Controller-->
         <scene sceneID="Bf2-uZ-MpF">
             <objects>
-                <viewController storyboardIdentifier="InputValueViewController" id="A8x-YQ-5I9" customClass="InputValueViewController" customModule="VidyoConnector_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InputValueViewController" id="A8x-YQ-5I9" customClass="InputValueViewController" customModule="VidyoConnector" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pQT-kD-EaQ">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1235,7 +1232,7 @@ You are not able to send messages.</string>
                                     </label>
                                 </subviews>
                             </stackView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KzC-5U-ncG" customClass="AnalyticsTextField" customModule="VidyoConnector_iOS" customModuleProvider="target">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KzC-5U-ncG" customClass="AnalyticsTextField" customModule="VidyoConnector" customModuleProvider="target">
                                 <rect key="frame" x="25" y="167" width="378" height="50"/>
                                 <color key="tintColor" red="0.29532188180000002" green="0.86391049620000004" blue="0.38905674220000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -1288,7 +1285,7 @@ You are not able to send messages.</string>
         <!--Logs View Controller-->
         <scene sceneID="FVT-ST-XcR">
             <objects>
-                <viewController storyboardIdentifier="LogsViewController" id="LXd-gi-93L" customClass="LogsViewController" customModule="VidyoConnector_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LogsViewController" id="LXd-gi-93L" customClass="LogsViewController" customModule="VidyoConnector" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xeL-Xm-1cr">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1327,7 +1324,7 @@ You are not able to send messages.</string>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Log Level" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aKC-6k-joG" customClass="AnalyticsTextField" customModule="VidyoConnector_iOS" customModuleProvider="target">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Log Level" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aKC-6k-joG" customClass="AnalyticsTextField" customModule="VidyoConnector" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="34.333333333333343" width="380" height="50"/>
                                                 <color key="tintColor" red="0.29532188180000002" green="0.86391049620000004" blue="0.38905674220000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
@@ -1405,7 +1402,7 @@ You are not able to send messages.</string>
         <!--About View Controller-->
         <scene sceneID="LrP-VK-dm9">
             <objects>
-                <viewController storyboardIdentifier="AboutViewController" id="Q0V-0R-4yB" customClass="AboutViewController" customModule="VidyoConnector_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AboutViewController" id="Q0V-0R-4yB" customClass="AboutViewController" customModule="VidyoConnector" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ohv-E3-cEv">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1468,7 +1465,7 @@ You are not able to send messages.</string>
                                     </mask>
                                 </variation>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright © 2010 – 2023 Vidyo, Inc." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d0k-9J-60e">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright © 2010 – 2025 Vidyo, Inc." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d0k-9J-60e">
                                 <rect key="frame" x="104.33333333333333" y="557" width="219.33333333333337" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="BEM-SL-5fq"/>
@@ -1518,7 +1515,7 @@ You are not able to send messages.</string>
         <!--Participants View Controller-->
         <scene sceneID="UL7-dQ-Nxm">
             <objects>
-                <viewController storyboardIdentifier="ParticipantsViewController" id="e20-Wf-eaG" customClass="ParticipantsViewController" customModule="VidyoConnector_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ParticipantsViewController" id="e20-Wf-eaG" customClass="ParticipantsViewController" customModule="VidyoConnector" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lDh-2R-bxg">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1572,7 +1569,7 @@ You are not able to send messages.</string>
         <!--Screen Sharing Alert View Controller-->
         <scene sceneID="R63-Za-xyu">
             <objects>
-                <viewController storyboardIdentifier="ScreenSharingAlertViewController" id="CzT-UY-liq" customClass="ScreenSharingAlertViewController" customModule="VidyoConnector_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ScreenSharingAlertViewController" id="CzT-UY-liq" customClass="ScreenSharingAlertViewController" customModule="VidyoConnector" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="O8d-wY-Xck">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1629,8 +1626,8 @@ You are not able to send messages.</string>
                                                 <variation key="heightClass=compact">
                                                     <mask key="constraints">
                                                         <include reference="FS4-3D-8T8"/>
-                                                        <include reference="pjQ-nb-ZD7"/>
                                                         <include reference="uiq-Bq-gDM"/>
+                                                        <include reference="pjQ-nb-ZD7"/>
                                                     </mask>
                                                 </variation>
                                             </view>
@@ -1818,7 +1815,7 @@ You are not able to send messages.</string>
         <!--Vidyo Insight View Controller-->
         <scene sceneID="d0D-Z1-sKd">
             <objects>
-                <viewController storyboardIdentifier="VidyoInsightViewController" id="4DM-WS-h9b" customClass="VidyoInsightViewController" customModule="VidyoConnector_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VidyoInsightViewController" id="4DM-WS-h9b" customClass="VidyoInsightViewController" customModule="VidyoConnector" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yix-cc-Lhm">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1835,7 +1832,7 @@ You are not able to send messages.</string>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T38-c4-7en" customClass="AnalyticsTextField" customModule="VidyoConnector_iOS" customModuleProvider="target">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T38-c4-7en" customClass="AnalyticsTextField" customModule="VidyoConnector" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="24.333333333333329" width="378" height="50"/>
                                                 <color key="tintColor" red="0.29532188180000002" green="0.86391049620000004" blue="0.38905674220000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
@@ -1910,13 +1907,37 @@ You are not able to send messages.</string>
             </objects>
             <point key="canvasLocation" x="2803" y="879"/>
         </scene>
+        <!--Renderer Options Table View Controller-->
+        <scene sceneID="lLv-kW-MKn">
+            <objects>
+                <viewController storyboardIdentifier="RendererOptionsTableViewController" id="3EZ-st-0bg" customClass="RendererOptionsTableViewController" customModule="VidyoConnector" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="3yS-c5-fKb">
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="gTj-Nl-NqF">
+                                <rect key="frame" x="0.0" y="50" width="428" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gTj-Nl-NqF" id="MZ0-RG-Eb0">
+                                    <rect key="frame" x="0.0" y="0.0" width="428" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                    </tableView>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="99K-7N-UNt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6973" y="879"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Logo-Vidyo.io" width="68" height="80"/>
         <image name="Vidyo.io-Vertical-Dark" width="288" height="288"/>
         <image name="backButton" width="20" height="20"/>
         <image name="backDark" width="16" height="16"/>
-        <image name="chevron.right" catalog="system" width="96" height="128"/>
+        <image name="chevron.right" catalog="system" width="97" height="128"/>
         <image name="none" width="132" height="72"/>
         <image name="sendMessage" width="16" height="16"/>
         <image name="xmark" width="20" height="20"/>

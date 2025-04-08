@@ -10,7 +10,7 @@ import VidyoClientIOS
 
 struct RemoteControllableCamera: Equatable {
     let id: String
-    let partisipantName: String
+    let participantName: String
     let remoteCamera: VCRemoteCamera
     let controlCapabilities: VCCameraControlCapabilities
     
@@ -26,10 +26,10 @@ struct RemoteControllableCamera: Equatable {
                 !controlCapabilities.zooomHasContinuousMove
     }
     
-    init(id: String, partisipantName: String, remoteCamera: VCRemoteCamera, controlCapabilities: VCCameraControlCapabilities) {
+    init(id: String, participantName: String, remoteCamera: VCRemoteCamera, controlCapabilities: VCCameraControlCapabilities) {
         self.id = id
         self.remoteCamera = remoteCamera
-        self.partisipantName = partisipantName
+        self.participantName = participantName
         self.controlCapabilities = controlCapabilities
     }
 }

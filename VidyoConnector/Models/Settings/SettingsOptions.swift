@@ -12,6 +12,7 @@ enum SettingsOption: String {
     case audio = "Audio"
     case video = "Video"
     case logs = "Logs"
+    case renderer = "Renderer"
     case about = "About"
 }
 
@@ -26,6 +27,8 @@ enum SettingsSectionHeaderTitle: String {
     case forwardErrorCorrection = "Forward Error Correction (FEC)"
     //Video
     case maxAllowedBandwidth = "Max Allowed Bandwidth"
+    //Renderer
+    case conference = "Conference"
 }
 
 // General Settings
@@ -36,7 +39,22 @@ enum CPUProfileOption: String {
 }
 
 enum SelfViewOption: String {
+    case topRight = "Top Right"
+    case topLeft = "Top Left"
     case bottomRight = "Bottom Right"
+    case bottomLeft = "Bottom Left"
+    case centerRight = "Center Right"
+    case centerLeft = "Center Left"
+    case topCenter = "Top Center"
+    case centerCenter = "Center Center"
+    case bottomCenter = "Bottom Center"
+}
+
+enum BorderStyleOption: String {
+    case highlight = "Highlight"
+    case flash = "Flash"
+    case same = "Same"
+    case none = "None"
 }
 
 // Audio Settings

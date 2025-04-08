@@ -35,4 +35,10 @@ class LoadingViewController: UIViewController {
         loadingActivityIndicator.stopAnimating()
         dismiss(animated: true, completion: nil)
     }
+    
+    func startLoading() {
+        if(!loadingActivityIndicator.isAnimating){
+            loadingActivityIndicator.startAnimating()
+        }
+    }
 }

@@ -22,7 +22,7 @@ struct ChatNotification: MessageProtocol {
     var date: Date
     
     var participantID: String {
-        String(participant.userId)
+        String(participant.id)
     }
     var participantName: String {
         String(participant.name)

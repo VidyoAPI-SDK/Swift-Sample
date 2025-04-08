@@ -10,12 +10,19 @@ import VidyoClientIOS
 
 let chatManager = ChatsManager.shared
 
+extension Array {
+    func isValidIndex(_ index : Int) -> Bool {
+        return index < self.count
+    }
+}
+
 class ChatsManager {
     static let shared = ChatsManager()
     
     private let messagingManager = MessagingManager()
     private let participantsManager = ConnectorManager.shared.participantManager
-    
+    private let queue = DispatchQueue(label: "com.chat.arrayAccess", attributes: .concurrent)
+
     var chatList = [Chat(isGroupChat: true)]
     
     var conferenceHandler: (() -> ())?
@@ -28,7 +35,9 @@ class ChatsManager {
     }
     var newMessagesTotalNumber: Int {
         var number = 0
-        chatList.forEach { number += $0.newMessageCount}
+        queue.sync {
+            chatList.forEach { number += $0.newMessageCount}
+        }
         return number
     }
     
@@ -40,15 +49,20 @@ class ChatsManager {
     }
     
     func clearData() {
-        chatList = [Chat(isGroupChat: true)]
-        removeObservers()
+        queue.async(flags: .barrier) {
+            self.chatList = [Chat(isGroupChat: true)]
+            self.removeObservers()
+        }
     }
     
     func updateChat(_ updatedChat: Chat?) {
         guard let updatedChat = updatedChat else { return }
-        chatList = chatList.map { chat -> Chat in
-            guard chat.id == updatedChat.id else { return chat }
-            return updatedChat
+        
+        queue.async(flags: .barrier) {
+            self.chatList = self.chatList.map { chat -> Chat in
+                guard chat.id == updatedChat.id else { return chat }
+                return updatedChat
+            }
         }
     }
     
@@ -105,9 +119,12 @@ class ChatsManager {
             return
         }
         print(message)
-        guard !chatList.isEmpty else { return }
-        chatList[0].messages.append(message)
-        chatList[0].newMessageCount += 1
+        
+        queue.async(flags: .barrier) {
+            guard !self.chatList.isEmpty else { return }
+            self.chatList[0].messages.append(message)
+            self.chatList[0].newMessageCount += 1
+        }
         
         conferenceHandler?()
         chatListHandler?()
@@ -123,8 +140,10 @@ class ChatsManager {
             log.error("No chat with \(message.senderName) found.")
             return
         }
-        chatList[index].messages.append(message)
-        chatList[index].newMessageCount += 1
+        queue.async(flags: .barrier) {
+            self.chatList[index].messages.append(message)
+            self.chatList[index].newMessageCount += 1
+        }
         
         conferenceHandler?()
         chatListHandler?()
@@ -136,8 +155,10 @@ class ChatsManager {
             log.info("Cannot get user data: \(#function).")
             return
         }
-        guard !chatList.isEmpty else { return }
-        chatList[0].messages.append(notification)
+        queue.async(flags: .barrier) {
+            guard !self.chatList.isEmpty else { return }
+            self.chatList[0].messages.append(notification)
+        }
         conferenceHandler?()
         chatListHandler?()
         chatEventsHandler?(notification)
@@ -163,31 +184,44 @@ class ChatsManager {
     }
     
     private func chatExists(forParticipant participant: VCParticipant) -> Bool {
-        chatList.first(where: { $0.id == String(participant.userId) }) != nil
+        queue.sync {
+            chatList.first(where: { $0.id == String(participant.id) }) != nil
+        }
     }
     
     private func getIndex(forParticipant participant: VCParticipant) -> Int? {
-        chatList.firstIndex(where: { $0.id == String(participant.userId)})
+        queue.sync {
+            chatList.firstIndex(where: { $0.id == String(participant.id)})
+        }
     }
 
     private func updateChatListWhenJoined(_ participant: VCParticipant) {
         if chatExists(forParticipant: participant) {
             if let index = getIndex(forParticipant: participant) {
-                chatList[index].isActive = true
-                chatList[index].participant = participant
+                queue.async(flags: .barrier) {
+                    self.chatList[index].isActive = true
+                    self.chatList[index].participant = participant
+                }
             }
         } else {
             let newChat = Chat(participant: participant)
-            chatList.append(newChat)
+            queue.async(flags: .barrier) {
+                self.chatList.append(newChat)
+            }
         }
     }
     
     private func updateChatListWhenLeft(_ participant: VCParticipant) {
         guard let index = getIndex(forParticipant: participant) else { return }
-        if chatList[index].messages.isEmpty {
-            chatList.remove(at: index)
-        } else {
-            chatList[index].isActive = false
+        
+        queue.async(flags: .barrier) {
+            guard self.chatList.isValidIndex(index) else { return }
+            
+            if self.chatList[index].messages.isEmpty {
+                self.chatList.remove(at: index)
+            } else {
+                self.chatList[index].isActive = false
+            }
         }
     }
 }

@@ -12,6 +12,7 @@ enum PreferencesOption {
     case mic
     case camera
     case speaker
+    case torch
 }
 
 class PreferencesManager {
@@ -21,6 +22,7 @@ class PreferencesManager {
     var micState: DeviceState
     var cameraState: DeviceState
     var speakerState: DeviceState
+    var torchState: DeviceState
     
     var devicesSelected: Bool
     var shouldUnmuteCameraOnForeground: Bool
@@ -29,6 +31,7 @@ class PreferencesManager {
         micState = .unmuted
         cameraState = .unmuted
         speakerState = .unmuted
+        torchState = .off
         devicesSelected = true
         shouldUnmuteCameraOnForeground = false
     }
@@ -44,6 +47,7 @@ class PreferencesManager {
         case .mic: micState.setState(state)
         case .camera: cameraState.setState(state)
         case .speaker: speakerState.setState(state)
+        case .torch: torchState.setState(state)
         }
     }
     
@@ -52,6 +56,7 @@ class PreferencesManager {
         case .mic: micState.swapBasicStates()
         case .camera: cameraState.swapBasicStates()
         case .speaker: speakerState.swapBasicStates()
+        case .torch: torchState.swapBasicStates()
         }
     }
     
@@ -67,11 +72,16 @@ class PreferencesManager {
         setState(for: type, state: deviceState)
     }
     
+    func handleTorchState(type: PreferencesOption, state : DeviceState) {
+        setState(for: type, state: state)
+    }
+    
     func getCurrentState(of option: PreferencesOption) -> Bool {
         switch option {
         case .mic: return micState.bool
         case .camera: return cameraState.bool
         case .speaker: return speakerState.bool
+        case .torch: return torchState.bool
         }
     }
     
@@ -83,6 +93,8 @@ class PreferencesManager {
             return micState == .unmuted ? Constants.Icon.micOn : (micState == .disabled ? Constants.Icon.micDisabled : Constants.Icon.micMuted)
         case .camera:
             return cameraState == .unmuted ? Constants.Icon.cameraOn : (cameraState == .disabled ? Constants.Icon.cameraDisabled : Constants.Icon.cameraMuted)
+        case .torch:
+            return torchState == .on ? Constants.Icon.torchOn : (torchState == .disabled ? Constants.Icon.torchDisabled : Constants.Icon.torchOff)
         }
     }
 }

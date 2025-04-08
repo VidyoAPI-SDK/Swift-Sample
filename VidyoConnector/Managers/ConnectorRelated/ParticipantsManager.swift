@@ -54,11 +54,8 @@ class ParticipantsManager {
         remoteCameraManager.unregisterRemoteCameraEventListener()
     }
     
-    func pinPartisipant(_ participantID: String, pin: Bool) -> Bool {
-        guard let participant = participants.first(where: { $0.getId() == participantID }) else {
-           return false
-        }
-        return connector.pinParticipant(participant, pin: pin)
+    func pinParticipant(_ participant: VCParticipant, _ pin: Bool, _ callback: @escaping (Bool) -> Void) {
+        RendererManager.shared.pinParticipant(participant, pin, callback)
     }
     
     private func setupRemoteDevicesCallbackHandlers() {

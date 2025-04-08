@@ -40,7 +40,7 @@ class RemoteCameraControlActionSheet {
             self.alertSheet.dismiss(animated: true, completion: nil)
         }
         remoteCameraManager.remoteControllableCameras.forEach { info in
-            let action = UIAlertAction(title: "\(info.partisipantName)", style: .default) { _ in
+            let action = UIAlertAction(title: "\(info.participantName)", style: .default) { _ in
                 self.remoteCameraManager.selectCameraToControl(info)
                 self.onActionSelectedHandler?(info)
             }

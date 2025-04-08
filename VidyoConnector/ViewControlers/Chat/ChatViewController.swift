@@ -148,7 +148,7 @@ class ChatViewController: UIViewController {
             sendButton.isHidden = true
             leftConferenceMessage.isHidden = false
             leftConferenceMessage.textColor = .white
-            leftConferenceMessage.text = String(format: Constants.Chat.partisipantLeftMessage, "\(chat.name)")
+            leftConferenceMessage.text = String(format: Constants.Chat.participantLeftMessage, "\(chat.name)")
         }
     }
     
@@ -174,7 +174,7 @@ class ChatViewController: UIViewController {
             self.leftConferenceMessage.isHidden = isActive
             guard !isActive else { return }
             self.leftConferenceMessage.textColor = .white
-            self.leftConferenceMessage.text = String(format: Constants.Chat.partisipantLeftMessage, "\(self.chat.name)")
+            self.leftConferenceMessage.text = String(format: Constants.Chat.participantLeftMessage, "\(self.chat.name)")
         }
     }
     

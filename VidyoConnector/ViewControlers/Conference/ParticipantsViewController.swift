@@ -142,19 +142,26 @@ class ParticipantsViewController: UIViewController {
     }
     
     private func handleParticipantPin(withIndex index: Int) {
-        guard participantManager!.pinPartisipant(participants[index].id, pin: !participants[index].isPinned) else { return }
+        guard let participantManager = participantManager else { return }
+        guard index < participants.count else { return }
+        let participant = participants[index]
         
-        if !participants[index].isPinned {
-            participants = participants.map {
-                var option = $0
-                guard option.isPinned == true else { return option }
-                option.isPinned = false
-                return option
+        participantManager.pinParticipant(participant.nativeObject, !participants[index].isPinned) { [weak self] success in
+            guard let self = self, success else { return }
+            if !self.participants[index].isPinned {
+                self.participants = self.participants.map {
+                    var option = $0
+                    guard option.isPinned == true else { return option }
+                    option.isPinned = false
+                    return option
+                }
+            }
+            
+            self.participants[index].isPinned = !self.participants[index].isPinned
+            DispatchQueue.main.async {
+                self.participantsTableView.reloadData()
             }
         }
-        
-        participants[index].isPinned = !participants[index].isPinned
-        participantsTableView.reloadData()
     }
 }
 

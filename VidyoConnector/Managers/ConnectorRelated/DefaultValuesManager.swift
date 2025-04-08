@@ -14,7 +14,24 @@ class DefaultValuesManager {
     private var autoReconnectSetting: AutoReconnectSetting?
     private var audioOptions: AudioSettingOptions?
     
-    private init() {}
+    public var renderer = RendererType.primary
+    public var layout = LayoutType.grid
+
+    public var debugInfoVisibility = false
+    public var labelVisibility = true
+    public var audioMeterVisibility = true
+    
+    public var previewMirroring = true
+    public var showAudioTiles = true
+    public var expandedCameraControl = true
+    public var feccIconCustomLayout = false
+    public var verticalVideoCentering = true
+    
+    private init() {
+        if renderer == RendererType.tile {
+            layout = LayoutType.grid
+        }
+    }
     
     func getCPUProfile() -> VCConnectorTradeOffProfile {
         ConnectorManager.shared.connector.getCpuTradeOffProfile()

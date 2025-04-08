@@ -16,7 +16,7 @@ class LogsManager {
     }
     
     func setAdvancedLogOptions(filter: String) -> Bool {
-        return connector.setAdvancedLogOptions(.FILE, advancedLogFilter: NSMutableString(string: filter))
+        return connector.setAdvancedLogOptions(.FILE, advancedLogFilter: filter)
     }
     
     func setLogLevel(_ logLevel: LogLevel) -> Bool {

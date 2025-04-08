@@ -9,14 +9,21 @@
 /* Begin PBXBuildFile section */
 		0F9671E8288E7E3900E23170 /* VidyoInsightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9671E7288E7E3900E23170 /* VidyoInsightViewController.swift */; };
 		8DAD2DE7DEF74CDF8FF0B23F /* Pods_VidyoConnector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1905E961CD7C651181627E4C /* Pods_VidyoConnector.framework */; };
-		AC095B9B294DCC280073A6CB /* BNBEffectPlayerC.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC095B9A294DCC280073A6CB /* BNBEffectPlayerC.xcframework */; };
-		AC095B9D294DCC380073A6CB /* VidyoClientIOS.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC095B9C294DCC380073A6CB /* VidyoClientIOS.xcframework */; };
-		AC095B9E294DCC450073A6CB /* BNBEffectPlayerC.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AC095B9A294DCC280073A6CB /* BNBEffectPlayerC.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		94DC80452A2015580047E45C /* RendererManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DC80442A2015580047E45C /* RendererManager.swift */; };
+		94F71BFD2A25E9D500D9FE31 /* RendererSettingsOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F71BF72A25E9D500D9FE31 /* RendererSettingsOptions.swift */; };
+		94F71C0B2A25EAA700D9FE31 /* RendererOptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F71C052A25EAA700D9FE31 /* RendererOptionsTableViewController.swift */; };
 		AC97411227E28A3E007C424C /* VidyoConnectorVersion_.sh in Resources */ = {isa = PBXBuildFile; fileRef = AC97411127E28A3E007C424C /* VidyoConnectorVersion_.sh */; };
 		AC97417E27E28D70007C424C /* BackgroundImages in Resources */ = {isa = PBXBuildFile; fileRef = AC97417D27E28D70007C424C /* BackgroundImages */; };
 		AC97418027E28D83007C424C /* effects in Resources */ = {isa = PBXBuildFile; fileRef = AC97417F27E28D83007C424C /* effects */; };
+		AC9A45782992A9DA00593ED1 /* CertificatesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9A45772992A9DA00593ED1 /* CertificatesManager.swift */; };
+		AC9A45AA2992F0F100593ED1 /* custom_certificates.pem in Resources */ = {isa = PBXBuildFile; fileRef = AC9A45A52992F0F000593ED1 /* custom_certificates.pem */; };
+		ACE893B327E23D61008990C3 /* BNBEffectPlayerC.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACE893B227E23D61008990C3 /* BNBEffectPlayerC.xcframework */; };
 		ACE893B627E23E7F008990C3 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACE893B527E23E7F008990C3 /* Photos.framework */; };
-		B449E4F22C20498A007C0F45 /* CertificatesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B449E4F12C20498A007C0F45 /* CertificatesManager.swift */; };
+		ACE8945327E2568B008990C3 /* BNBEffectPlayerC.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ACE893B227E23D61008990C3 /* BNBEffectPlayerC.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B42628C62DA5A5B4009167CB /* NgrPlugin.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = B42628C52DA5A5B4009167CB /* NgrPlugin.xcframework */; };
+		B42628C72DA5A5B4009167CB /* NgrPlugin.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B42628C52DA5A5B4009167CB /* NgrPlugin.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B42628C92DA5A734009167CB /* VidyoClientIOS.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = B42628C82DA5A734009167CB /* VidyoClientIOS.xcframework */; };
+		B42628CA2DA5A734009167CB /* VidyoClientIOS.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B42628C82DA5A734009167CB /* VidyoClientIOS.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F10FE2122665469F00F440A5 /* LoginToolbar.xib in Resources */ = {isa = PBXBuildFile; fileRef = F10FE2112665469F00F440A5 /* LoginToolbar.xib */; };
 		F10FE215266546BA00F440A5 /* LoginToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10FE214266546BA00F440A5 /* LoginToolbar.swift */; };
 		F10FE21C266562D800F440A5 /* BaseJoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10FE21B266562D800F440A5 /* BaseJoinViewController.swift */; };
@@ -51,6 +58,7 @@
 		F136EF4926C462D800936257 /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F136EF4826C462D800936257 /* ChatListViewController.swift */; };
 		F13D7E2226B422E70066FEE8 /* VirtualVideoSourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13D7E2126B422E70066FEE8 /* VirtualVideoSourceManager.swift */; };
 		F1481DBC26DFB39A00099FB4 /* CameraBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1481DBB26DFB39A00099FB4 /* CameraBackground.swift */; };
+		F17014A6265D0D7000E9B8DD /* VidyoClientIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F17014A5265D0D7000E9B8DD /* VidyoClientIOS.framework */; };
 		F17014C1265D39E800E9B8DD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F17014C0265D39E800E9B8DD /* CoreLocation.framework */; };
 		F17014C3265D39F200E9B8DD /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F17014C2265D39F200E9B8DD /* CoreMedia.framework */; };
 		F17014C5265D39FC00E9B8DD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F17014C4265D39FC00E9B8DD /* SystemConfiguration.framework */; };
@@ -129,7 +137,7 @@
 		F1EC6BC426C9A94600127D66 /* SentMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EC6BC226C9A94600127D66 /* SentMessageTableViewCell.swift */; };
 		F1EC6BC526C9A94600127D66 /* SentMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1EC6BC326C9A94600127D66 /* SentMessageTableViewCell.xib */; };
 		F1ECCB8826B3E2C100AA4BF8 /* SampleHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1ECCB8726B3E2C100AA4BF8 /* SampleHandler.swift */; };
-		F1ECCB8C26B3E2C100AA4BF8 /* BroadcastExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F1ECCB8326B3E2C100AA4BF8 /* BroadcastExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F1ECCB8C26B3E2C100AA4BF8 /* BroadcastExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F1ECCB8326B3E2C100AA4BF8 /* BroadcastExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F1ECCB9A26B3E57100AA4BF8 /* CMSampleBuffer+Orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1ECCB9926B3E57100AA4BF8 /* CMSampleBuffer+Orientation.swift */; };
 		F1ECCB9F26B3E60F00AA4BF8 /* ServerSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = F1ECCB9E26B3E60F00AA4BF8 /* ServerSocket.m */; };
 		F1ECCBB926B3E8F000AA4BF8 /* ShareImageConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1ECCBB626B3E8DD00AA4BF8 /* ShareImageConverter.swift */; };
@@ -184,21 +192,23 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				AC095B9E294DCC450073A6CB /* BNBEffectPlayerC.xcframework in Embed Frameworks */,
+				ACE8945327E2568B008990C3 /* BNBEffectPlayerC.xcframework in Embed Frameworks */,
+				B42628C72DA5A5B4009167CB /* NgrPlugin.xcframework in Embed Frameworks */,
+				B42628CA2DA5A734009167CB /* VidyoClientIOS.xcframework in Embed Frameworks */,
 				F1F8903126B3EC2700C6E7BD /* CFNotificationCenterWrapper.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F1ECCB9026B3E2C100AA4BF8 /* Embed Foundation Extensions */ = {
+		F1ECCB9026B3E2C100AA4BF8 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				F1ECCB8C26B3E2C100AA4BF8 /* BroadcastExtension.appex in Embed Foundation Extensions */,
+				F1ECCB8C26B3E2C100AA4BF8 /* BroadcastExtension.appex in Embed App Extensions */,
 			);
-			name = "Embed Foundation Extensions";
+			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -206,15 +216,24 @@
 /* Begin PBXFileReference section */
 		0C67D3104340FD8D36B848C3 /* Pods-VidyoConnector.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VidyoConnector.release.xcconfig"; path = "Target Support Files/Pods-VidyoConnector/Pods-VidyoConnector.release.xcconfig"; sourceTree = "<group>"; };
 		0F9671E7288E7E3900E23170 /* VidyoInsightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VidyoInsightViewController.swift; sourceTree = "<group>"; };
+		11F273CF2B29CD17000D75F8 /* RendererPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RendererPlugin.swift; sourceTree = "<group>"; };
 		1905E961CD7C651181627E4C /* Pods_VidyoConnector.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VidyoConnector.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AC095B9A294DCC280073A6CB /* BNBEffectPlayerC.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:6888NB32SR:Vidyo, Inc."; lastKnownFileType = wrapper.xcframework; name = BNBEffectPlayerC.xcframework; path = "VidyoClient-iOSSDK/lib/ios/Banuba/BNBEffectPlayerC.xcframework"; sourceTree = "<group>"; };
-		AC095B9C294DCC380073A6CB /* VidyoClientIOS.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:6888NB32SR:Vidyo, Inc."; lastKnownFileType = wrapper.xcframework; name = VidyoClientIOS.xcframework; path = "VidyoClient-iOSSDK/lib/ios/VidyoClientIOS.xcframework"; sourceTree = "<group>"; };
+		94DC80442A2015580047E45C /* RendererManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RendererManager.swift; sourceTree = "<group>"; };
+		94DC805B2A2139BF0047E45C /* RendererLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RendererLayout.swift; sourceTree = "<group>"; };
+		94DC805D2A213DEA0047E45C /* RendererSurface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RendererSurface.swift; sourceTree = "<group>"; };
+		94DC80612A2150A40047E45C /* RendererTileSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RendererTileSet.swift; sourceTree = "<group>"; };
+		94F71BF72A25E9D500D9FE31 /* RendererSettingsOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RendererSettingsOptions.swift; sourceTree = "<group>"; };
+		94F71C052A25EAA700D9FE31 /* RendererOptionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RendererOptionsTableViewController.swift; sourceTree = "<group>"; };
 		AC97411127E28A3E007C424C /* VidyoConnectorVersion_.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = VidyoConnectorVersion_.sh; sourceTree = "<group>"; };
 		AC97417D27E28D70007C424C /* BackgroundImages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = BackgroundImages; sourceTree = "<group>"; };
 		AC97417F27E28D83007C424C /* effects */ = {isa = PBXFileReference; lastKnownFileType = folder; name = effects; path = "../../VidyoClient-iOSSDK/lib/ios/Banuba/effects"; sourceTree = "<group>"; };
+		AC9A45772992A9DA00593ED1 /* CertificatesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificatesManager.swift; sourceTree = "<group>"; };
+		AC9A45A52992F0F000593ED1 /* custom_certificates.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = custom_certificates.pem; sourceTree = "<group>"; };
+		ACE893B227E23D61008990C3 /* BNBEffectPlayerC.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:6888NB32SR:Vidyo, Inc."; lastKnownFileType = wrapper.xcframework; name = BNBEffectPlayerC.xcframework; path = "VidyoClient-iOSSDK/lib/ios/Banuba/BNBEffectPlayerC.xcframework"; sourceTree = "<group>"; };
 		ACE893B527E23E7F008990C3 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		ACE893DC27E2406D008990C3 /* VidyoConnector.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VidyoConnector.entitlements; sourceTree = "<group>"; };
-		B449E4F12C20498A007C0F45 /* CertificatesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificatesManager.swift; sourceTree = "<group>"; };
+		B42628C52DA5A5B4009167CB /* NgrPlugin.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:6888NB32SR:Vidyo, Inc."; lastKnownFileType = wrapper.xcframework; name = NgrPlugin.xcframework; path = "VidyoClient-iOSSDK/lib/ios/NgrPlugin.xcframework"; sourceTree = "<group>"; };
+		B42628C82DA5A734009167CB /* VidyoClientIOS.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:6888NB32SR:Vidyo, Inc."; lastKnownFileType = wrapper.xcframework; name = VidyoClientIOS.xcframework; path = "VidyoClient-iOSSDK/lib/ios/VidyoClientIOS.xcframework"; sourceTree = "<group>"; };
 		ECD19BA9440527CCB8551AAD /* Pods-VidyoConnector.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VidyoConnector.debug.xcconfig"; path = "Target Support Files/Pods-VidyoConnector/Pods-VidyoConnector.debug.xcconfig"; sourceTree = "<group>"; };
 		F10FE2112665469F00F440A5 /* LoginToolbar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginToolbar.xib; sourceTree = "<group>"; };
 		F10FE214266546BA00F440A5 /* LoginToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginToolbar.swift; sourceTree = "<group>"; };
@@ -252,6 +271,7 @@
 		F136EF4826C462D800936257 /* ChatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
 		F13D7E2126B422E70066FEE8 /* VirtualVideoSourceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualVideoSourceManager.swift; sourceTree = "<group>"; };
 		F1481DBB26DFB39A00099FB4 /* CameraBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraBackground.swift; sourceTree = "<group>"; };
+		F17014A5265D0D7000E9B8DD /* VidyoClientIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VidyoClientIOS.framework; sourceTree = "<group>"; };
 		F17014B7265D195600E9B8DD /* VidyoConnector-iOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VidyoConnector-iOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		F17014C0265D39E800E9B8DD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		F17014C2265D39F200E9B8DD /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
@@ -368,15 +388,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC095B9D294DCC380073A6CB /* VidyoClientIOS.xcframework in Frameworks */,
-				AC095B9B294DCC280073A6CB /* BNBEffectPlayerC.xcframework in Frameworks */,
 				ACE893B627E23E7F008990C3 /* Photos.framework in Frameworks */,
+				ACE893B327E23D61008990C3 /* BNBEffectPlayerC.xcframework in Frameworks */,
+				B42628C92DA5A734009167CB /* VidyoClientIOS.xcframework in Frameworks */,
 				F17014C9265D3A1200E9B8DD /* AVFoundation.framework in Frameworks */,
 				F17014C7265D3A0800E9B8DD /* AudioToolbox.framework in Frameworks */,
 				F1F8903026B3EC2700C6E7BD /* CFNotificationCenterWrapper.framework in Frameworks */,
+				B42628C62DA5A5B4009167CB /* NgrPlugin.xcframework in Frameworks */,
 				F17014C5265D39FC00E9B8DD /* SystemConfiguration.framework in Frameworks */,
 				F17014C3265D39F200E9B8DD /* CoreMedia.framework in Frameworks */,
 				F17014C1265D39E800E9B8DD /* CoreLocation.framework in Frameworks */,
+				F17014A6265D0D7000E9B8DD /* VidyoClientIOS.framework in Frameworks */,
 				8DAD2DE7DEF74CDF8FF0B23F /* Pods_VidyoConnector.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -402,6 +424,18 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		94DC805A2A212C570047E45C /* Renderer */ = {
+			isa = PBXGroup;
+			children = (
+				94DC80442A2015580047E45C /* RendererManager.swift */,
+				94DC805B2A2139BF0047E45C /* RendererLayout.swift */,
+				11F273CF2B29CD17000D75F8 /* RendererPlugin.swift */,
+				94DC805D2A213DEA0047E45C /* RendererSurface.swift */,
+				94DC80612A2150A40047E45C /* RendererTileSet.swift */,
+			);
+			name = Renderer;
+			sourceTree = "<group>";
+		};
 		F10FE21F2665769800F440A5 /* LoginToolbar */ = {
 			isa = PBXGroup;
 			children = (
@@ -414,6 +448,7 @@
 		F118F618267BDE00002B9203 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				94F71BF72A25E9D500D9FE31 /* RendererSettingsOptions.swift */,
 				F194004B267D38CB009650D8 /* AnalyticsEvent.swift */,
 				F194A2B926A0453E006D9282 /* AudioSettingsOptions.swift */,
 				F1969300267B8A4F00A08F88 /* GeneralSettingsOptions.swift */,
@@ -465,14 +500,16 @@
 		F12837F2265457F100DF5949 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AC095B9C294DCC380073A6CB /* VidyoClientIOS.xcframework */,
-				AC095B9A294DCC280073A6CB /* BNBEffectPlayerC.xcframework */,
+				B42628C82DA5A734009167CB /* VidyoClientIOS.xcframework */,
+				B42628C52DA5A5B4009167CB /* NgrPlugin.xcframework */,
 				ACE893B527E23E7F008990C3 /* Photos.framework */,
+				ACE893B227E23D61008990C3 /* BNBEffectPlayerC.xcframework */,
 				F17014C8265D3A1200E9B8DD /* AVFoundation.framework */,
 				F17014C6265D3A0800E9B8DD /* AudioToolbox.framework */,
 				F17014C4265D39FC00E9B8DD /* SystemConfiguration.framework */,
 				F17014C2265D39F200E9B8DD /* CoreMedia.framework */,
 				F17014C0265D39E800E9B8DD /* CoreLocation.framework */,
+				F17014A5265D0D7000E9B8DD /* VidyoClientIOS.framework */,
 				F1ECCB8426B3E2C100AA4BF8 /* ReplayKit.framework */,
 				1905E961CD7C651181627E4C /* Pods_VidyoConnector.framework */,
 			);
@@ -567,12 +604,12 @@
 		F13A2C05266844770048C395 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				B449E4F12C20498A007C0F45 /* CertificatesManager.swift */,
 				F1918F25268B5C0700E29888 /* ConnectorRelated */,
 				F122360726D8177000C96C08 /* ChatsManager.swift */,
 				F12404F326DD339400A639EB /* CameraBackgroundManager.swift */,
 				F18CCCEA2668FE37001E37FB /* PreferencesManager.swift */,
 				F19692FC267B8A3000A08F88 /* SettingsManager.swift */,
+				AC9A45772992A9DA00593ED1 /* CertificatesManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -711,6 +748,7 @@
 		F1918F25268B5C0700E29888 /* ConnectorRelated */ = {
 			isa = PBXGroup;
 			children = (
+				94DC805A2A212C570047E45C /* Renderer */,
 				F1918F2F268B9EC400E29888 /* AnalyticsManager.swift */,
 				F194A2B726A04525006D9282 /* AudioConfigurationManager.swift */,
 				F1918F2B268B8C4600E29888 /* CameraConfigurationManager.swift */,
@@ -768,6 +806,7 @@
 		F19692F3267B89B500A08F88 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				94F71C052A25EAA700D9FE31 /* RendererOptionsTableViewController.swift */,
 				F19692F4267B89DC00A08F88 /* SettingsTableViewController.swift */,
 				F19692F6267B89E500A08F88 /* MainOptionsTableViewController.swift */,
 				F19692F8267B89FC00A08F88 /* ChoiceViewController.swift */,
@@ -829,6 +868,7 @@
 		F19EAD33265BC73500131224 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				AC9A45A52992F0F000593ED1 /* custom_certificates.pem */,
 				AC97417F27E28D83007C424C /* effects */,
 				AC97417D27E28D70007C424C /* BackgroundImages */,
 				F17014B7265D195600E9B8DD /* VidyoConnector-iOS-Bridging-Header.h */,
@@ -952,7 +992,7 @@
 				F12837D8265457AF00DF5949 /* Frameworks */,
 				F12837D9265457AF00DF5949 /* Resources */,
 				F19692F2267B881B00A08F88 /* Embed Frameworks */,
-				F1ECCB9026B3E2C100AA4BF8 /* Embed Foundation Extensions */,
+				F1ECCB9026B3E2C100AA4BF8 /* Embed App Extensions */,
 				AC97410D27E2893B007C424C /* Run Script - code signing */,
 				AC97410E27E28968007C424C /* Run Script - version numbering */,
 				B2835371B115DE446C876D90 /* [CP] Embed Pods Frameworks */,
@@ -991,7 +1031,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1240;
-				LastUpgradeCheck = 1410;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					F12837DA265457AF00DF5949 = {
 						CreatedOnToolsVersion = 12.4;
@@ -1060,6 +1100,7 @@
 				F10FE2122665469F00F440A5 /* LoginToolbar.xib in Resources */,
 				AC97418027E28D83007C424C /* effects in Resources */,
 				F1969310267B8B0400A08F88 /* SwitchTableViewCell.xib in Resources */,
+				AC9A45AA2992F0F100593ED1 /* custom_certificates.pem in Resources */,
 				F12837E8265457B000DF5949 /* Assets.xcassets in Resources */,
 				F1969307267B8AE600A08F88 /* MainOptionTableViewCell.xib in Resources */,
 				F12837E6265457AF00DF5949 /* Main.storyboard in Resources */,
@@ -1172,6 +1213,7 @@
 				F1EF702A26F92C3600F33023 /* CircularProgressBarView.swift in Sources */,
 				F19692F7267B89E500A08F88 /* MainOptionsTableViewController.swift in Sources */,
 				F12F914726F28215006C146E /* DeviceState.swift in Sources */,
+				94F71C0B2A25EAA700D9FE31 /* RendererOptionsTableViewController.swift in Sources */,
 				F182CE2F26C2B2310087C0E3 /* UIView+LoadFromNib.swift in Sources */,
 				F196930F267B8B0400A08F88 /* SwitchTableViewCell.swift in Sources */,
 				F194A2CC26A05C74006D9282 /* Participant.swift in Sources */,
@@ -1200,6 +1242,7 @@
 				F19097412669838A00E1F7DC /* LoadingViewController.swift in Sources */,
 				F1EF926926C46D57001AFF38 /* AvatarView.swift in Sources */,
 				F12837DF265457AF00DF5949 /* AppDelegate.swift in Sources */,
+				94DC80452A2015580047E45C /* RendererManager.swift in Sources */,
 				F17C1A7F26D2EC7300C1C5FC /* ChatNotificationTableViewCell.swift in Sources */,
 				0F9671E8288E7E3900E23170 /* VidyoInsightViewController.swift in Sources */,
 				F194A2BA26A0453E006D9282 /* AudioSettingsOptions.swift in Sources */,
@@ -1244,7 +1287,7 @@
 				F136EF4426C40AFE00936257 /* ChatTableViewCell.swift in Sources */,
 				F122360826D8177000C96C08 /* ChatsManager.swift in Sources */,
 				F1EC6BAE26C98A6400127D66 /* Message.swift in Sources */,
-				B449E4F22C20498A007C0F45 /* CertificatesManager.swift in Sources */,
+				AC9A45782992A9DA00593ED1 /* CertificatesManager.swift in Sources */,
 				F122360E26D8179200C96C08 /* RemoteShareManager.swift in Sources */,
 				F1969301267B8A4F00A08F88 /* GeneralSettingsOptions.swift in Sources */,
 				F19692FD267B8A3000A08F88 /* SettingsManager.swift in Sources */,
@@ -1256,6 +1299,7 @@
 				F19073F826C4FAAE009BC853 /* ChatSearchTextField.swift in Sources */,
 				F191D9C426810FE2002C1D97 /* SettingsTableViewHeaderView.swift in Sources */,
 				F1ECCBBF26B3E8F800AA4BF8 /* EventCounter.swift in Sources */,
+				94F71BFD2A25E9D500D9FE31 /* RendererSettingsOptions.swift in Sources */,
 				F18DEF2A26E56AA4004E7014 /* FrameRateTableViewCell.swift in Sources */,
 				F191D9C226810B58002C1D97 /* AnalyticsTextField.swift in Sources */,
 				F197296626C2FB1500476B10 /* RemoteControllableCamera.swift in Sources */,

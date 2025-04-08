@@ -19,6 +19,14 @@ enum SettingsCellAccessType {
 enum SettingsSwitchCell {
     case autoReconnect
     case disableVideoOnPoorConnection
+    case debugInfoVisible
+    case labelVisible
+    case audioMeterVisible
+    case previewMirroringEnable
+    case showAudioTiles
+    case expandedCameraControl
+    case feccIconCustomLayout
+    case verticalVideoCentering
 }
 
 struct SettingsOptionCell {

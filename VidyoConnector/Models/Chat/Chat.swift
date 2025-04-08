@@ -32,7 +32,7 @@ struct Chat {
     }
     
     init(participant: VCParticipant, avatarImage: UIImage? = nil) {
-        self.id = String(participant.userId)
+        self.id = String(participant.id)
         self.name = String(participant.name)
         self.participant = participant
         self.avatarImage = avatarImage

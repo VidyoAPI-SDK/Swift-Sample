@@ -11,9 +11,11 @@ enum DeviceState {
     case muted
     case unmuted
     case disabled
+    case off
+    case on
     
     var bool: Bool {
-        guard self == .unmuted else { return true }
+        guard self == .unmuted || self == .on else { return true }
         return false
     }
     
@@ -25,6 +27,8 @@ enum DeviceState {
         switch self {
         case .muted: self = .unmuted
         case .unmuted: self = .muted
+        case .on: self = .off
+        case .off: self = .on
         default: break
         }
     }
@@ -33,5 +37,9 @@ enum DeviceState {
         if self == .disabled {
             self =  .muted
         }
+    }
+    
+    mutating func disableIfNeeded() {
+            self =  .disabled
     }
 }

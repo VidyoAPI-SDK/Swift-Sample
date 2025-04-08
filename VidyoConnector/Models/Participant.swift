@@ -11,6 +11,8 @@ import VidyoClientIOS
 struct Participant {
     private let clearanceType: VCParticipantClearanceType
     
+    let nativeObject: VCParticipant
+    
     let id: String
     let name: String
     let isLocal: Bool
@@ -32,6 +34,7 @@ struct Participant {
     }
     
     init(_ participant: VCParticipant) {
+        nativeObject = participant
         id = participant.getId()
         name = participant.getName()
         isLocal = participant.isLocal()

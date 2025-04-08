@@ -25,6 +25,10 @@ struct Constants {
         static let speakerMuted = "speakerMuted"
         static let speakerDisabled = "speakerDisabled"
         
+        static let torchOn = "torchOn"
+        static let torchOff = "torchOff"
+        static let torchDisabled = "torchDisabled"
+        
         static let background = "background"
         static let backgroundActive = "backgroundActive"
         static let backgroundDisabled = "backgroundDisabled"
@@ -86,6 +90,7 @@ struct Constants {
         
         static let none = "none"
         static let blur = "blur"
+        static let renderer = "renderer"
     }
     
     enum IconBG: String, CaseIterable {
@@ -131,7 +136,7 @@ struct Constants {
     struct Chat {
         static let groupChatImage = UIImage(named: "chat")
         static let textFieldPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
-        static let partisipantLeftMessage = "%@ left the conference. \nYou are not able to send messages."
+        static let participantLeftMessage = "%@ left the conference. \nYou are not able to send messages."
     }
     
     struct ModerationResponse {

@@ -58,7 +58,7 @@ class CameraControlView: UIView {
     
     // MARK: - Methods
     func prepareToControl(with camera: RemoteControllableCamera, manager: RemoteCameraManager) {
-        participantName.text = camera.partisipantName
+        participantName.text = camera.participantName
         remoteCameraManager = manager
     }
     

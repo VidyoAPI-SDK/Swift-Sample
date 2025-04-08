@@ -10,6 +10,7 @@ import VidyoClientIOS
 
 class CameraConfigurationManager {
     
+    static let shared = CameraConfigurationManager()
     private let connector = ConnectorManager.shared.connector
     private var currentLocalCameraWidth: UInt32 = Constants.DefaultCameraConstraint.width
     private var currentLocalCameraHeight: UInt32 = Constants.DefaultCameraConstraint.height
@@ -116,23 +117,61 @@ class CameraConfigurationManager {
     private func nanosecondInterval(fps: Int) -> Int {
         1000000000/fps
     }
+    
+    public func updateTorchStatus() {
+        var state: DeviceState = .disabled;
+        
+        if currentLocalCamera == nil || currentLocalCamera?.hasTorch() == false{
+            delegate?.onOtherDeviceStateUpdated(type: .torch, state: state)
+            return;
+        }
+        
+        switch currentLocalCamera?.getTorchMode() {
+        case .LOCALCAMERA_TORCHMODE_None : state = .disabled
+        case .LOCALCAMERA_TORCHMODE_On: state = .on
+        case .LOCALCAMERA_TORCHMODE_Off: state = .off
+        default:
+            break;
+        }
+        
+        delegate?.onOtherDeviceStateUpdated(type: .torch, state: state)
+    }
+    
+    public func setTorchMode(isMute: Bool) {
+        var mode:VCLocalCameraTorchMode = VCLocalCameraTorchMode.LOCALCAMERA_TORCHMODE_None;
+        
+        if currentLocalCamera == nil || currentLocalCamera?.hasTorch() == false{
+            return;
+        }
+        
+        switch(isMute) {
+        case true : mode = VCLocalCameraTorchMode.LOCALCAMERA_TORCHMODE_Off;
+        case false : mode = VCLocalCameraTorchMode.LOCALCAMERA_TORCHMODE_On;
+        }
+        
+        currentLocalCamera?.setTorchMode(mode);
+    }
 }
 
 //MARK: - VCConnectorIRegisterLocalCameraEventListener
 extension CameraConfigurationManager: VCConnectorIRegisterLocalCameraEventListener {
     func onLocalCameraAdded(_ localCamera: VCLocalCamera!) {
         localCameraOptions.append(localCamera)
+        updateTorchStatus();
     }
     
     func onLocalCameraRemoved(_ localCamera: VCLocalCamera!) {
         removeLocalCamera(localCamera)
+        updateTorchStatus();
     }
     
     func onLocalCameraSelected(_ localCamera: VCLocalCamera!) {
         currentLocalCamera = localCamera
+        updateTorchStatus();
     }
     
     func onLocalCameraStateUpdated(_ localCamera: VCLocalCamera!, state: VCDeviceState) {
         delegate?.onLocalDeviceStateUpdated(type: .camera, state: state)
+        updateTorchStatus();
     }
 }

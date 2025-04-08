@@ -21,42 +21,49 @@
                             <rect key="frame" x="0.0" y="0.0" width="894" height="82.5"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t16-bP-Wyc">
-                                    <rect key="frame" x="0.0" y="0.0" width="81.5" height="82.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="71.5" height="82.5"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SP2-Wj-tJx">
-                                    <rect key="frame" x="101.5" y="25.5" width="81.5" height="32"/>
+                                    <rect key="frame" x="91.5" y="25.5" width="71.5" height="32"/>
                                     <state key="normal" image="fecc"/>
                                     <connections>
                                         <action selector="cameraPTZButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="WeX-br-KhL"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rj2-in-Ymw">
-                                    <rect key="frame" x="203" y="25.5" width="81.5" height="32"/>
+                                    <rect key="frame" x="183" y="25.5" width="71" height="32"/>
                                     <state key="normal" image="background"/>
                                     <connections>
                                         <action selector="backgroundButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="t3Y-KN-CCf"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8aI-ks-YyT">
-                                    <rect key="frame" x="304.5" y="25.5" width="81.5" height="32"/>
+                                    <rect key="frame" x="274" y="25.5" width="71.5" height="32"/>
                                     <state key="normal" image="raiseHand"/>
                                     <connections>
                                         <action selector="raiseHandButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="p9S-29-iwK"/>
                                     </connections>
                                 </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J0Z-XC-S43">
+                                    <rect key="frame" x="365.5" y="25.5" width="71.5" height="32"/>
+                                    <state key="normal" image="torchDisabled"/>
+                                    <connections>
+                                        <action selector="torchButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="IaZ-YV-ny3"/>
+                                    </connections>
+                                </button>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hgG-tO-B8W" userLabel="Chat Button Container View">
-                                    <rect key="frame" x="406" y="0.0" width="82" height="82.5"/>
+                                    <rect key="frame" x="457" y="0.0" width="71.5" height="82.5"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2SD-JL-fUk">
-                                            <rect key="frame" x="0.0" y="0.0" width="82" height="82.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="71.5" height="82.5"/>
                                             <state key="normal" image="chat"/>
                                             <connections>
                                                 <action selector="chatButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="jl4-Sh-v01"/>
                                             </connections>
                                         </button>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AwS-kP-HCk">
-                                            <rect key="frame" x="43" y="23.5" width="16" height="16"/>
+                                            <rect key="frame" x="37.5" y="23.5" width="16" height="16"/>
                                             <color key="backgroundColor" name="GreenAccentColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="16" id="FgE-wq-sOD"/>
@@ -78,17 +85,17 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mdv-kZ-dlp" userLabel="Participants Button Container View">
-                                    <rect key="frame" x="508" y="0.0" width="81.5" height="82.5"/>
+                                    <rect key="frame" x="548.5" y="0.0" width="71.5" height="82.5"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gbz-az-r5W">
-                                            <rect key="frame" x="0.0" y="0.0" width="81.5" height="82.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="71.5" height="82.5"/>
                                             <state key="normal" image="participants"/>
                                             <connections>
                                                 <action selector="participantsButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="uHw-wW-SjE"/>
                                             </connections>
                                         </button>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FW8-mn-Qbb">
-                                            <rect key="frame" x="42.5" y="23.5" width="16" height="16"/>
+                                            <rect key="frame" x="37.5" y="23.5" width="16" height="16"/>
                                             <color key="backgroundColor" name="GreenAccentColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="16" id="Rsl-Sy-BDl"/>
@@ -110,21 +117,21 @@
                                     </constraints>
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hbr-ki-H7Q">
-                                    <rect key="frame" x="609.5" y="25.5" width="81.5" height="32"/>
+                                    <rect key="frame" x="640" y="25.5" width="71" height="32"/>
                                     <state key="normal" image="multipleShareActive"/>
                                     <connections>
                                         <action selector="multipleShareButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="mdd-Gk-W7s"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7JX-hu-HHh">
-                                    <rect key="frame" x="711" y="25.5" width="81.5" height="32"/>
+                                    <rect key="frame" x="731" y="25.5" width="71.5" height="32"/>
                                     <state key="normal" image="share"/>
                                     <connections>
                                         <action selector="screenShareButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="S4b-qc-pcD"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GHt-YF-ZHE">
-                                    <rect key="frame" x="812.5" y="25.5" width="81.5" height="32"/>
+                                    <rect key="frame" x="822.5" y="25.5" width="71.5" height="32"/>
                                     <state key="normal" image="moderator"/>
                                     <connections>
                                         <action selector="moderatorButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="tQF-yk-pUw"/>
@@ -238,6 +245,7 @@
                 <outlet property="screenShareButton" destination="7JX-hu-HHh" id="DHF-jC-L9P"/>
                 <outlet property="settingsButton" destination="WXC-z9-cBi" id="5aC-E9-zKS"/>
                 <outlet property="speakerButton" destination="5R1-Le-VqY" id="jW7-Ec-4sk"/>
+                <outlet property="torchButton" destination="J0Z-XC-S43" id="e1v-Bg-QAW"/>
             </connections>
             <point key="canvasLocation" x="-382.60869565217394" y="39.174107142857139"/>
         </view>
@@ -257,6 +265,7 @@
         <image name="settings" width="32" height="32"/>
         <image name="share" width="32" height="32"/>
         <image name="speakerOn" width="32" height="32"/>
+        <image name="torchDisabled" width="32" height="32"/>
         <namedColor name="GreenAccentColor">
             <color red="0.50196078431372548" green="0.69019607843137254" blue="0.18431372549019609" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

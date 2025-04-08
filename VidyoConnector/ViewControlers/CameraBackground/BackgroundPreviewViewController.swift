@@ -10,12 +10,12 @@ import UIKit
 class BackgroundPreviewViewController: UIViewController {
     
     // MARK: - IBOutlets
+    let renderer = RendererManager.shared
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var videoView: UIView!
     @IBOutlet weak var currentBgImageView: UIImageView!
     
     // MARK: - Const & vars
-    let connector = ConnectorManager.shared
     let backgroundManager = CameraBackgroundManager.shared
     
     // MARK: - Lifecycle
@@ -27,12 +27,29 @@ class BackgroundPreviewViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setEffect()
-        updatePreview(show: false)
+    }
+    
+    func updateViewSize() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.renderer.setViewSize(&self.videoView, self.videoView.frame)
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.renderer.showPreviewView(&self.videoView)
+        updateViewSize()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.renderer.hideView(&self.videoView)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        updatePreview(show: false)
+        updateViewSize()
     }
     
     // MARK: - IBActions
@@ -43,7 +60,6 @@ class BackgroundPreviewViewController: UIViewController {
     }
     
     @IBAction func closeButtonPressed(_ sender: UIButton) {
-		updatePreview(show: true)
         NotificationCenter.default.post(name: .onBackgroundChose, object: nil)
         dismiss(animated: true, completion: nil)
     }
@@ -55,22 +71,6 @@ class BackgroundPreviewViewController: UIViewController {
         currentBgImageView.layer.cornerRadius = 2
         contentView.layer.cornerRadius = 12
         videoView.layer.cornerRadius = 4
-    }
-    
-	private func updatePreview(show: Bool) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.connector.assignView(&self.videoView, remoteParticipants: 0)
-			
-			if (show) {
-				self.connector.hideView(&self.videoView)
-			} else {
-				self.connector.showView(for: &self.videoView)
-			}
-            
-            self.connector.showLabel(show, for: &self.videoView)
-            self.connector.showAudioMeters(show, for: &self.videoView)
-        }
     }
     
     private func setEffect() {

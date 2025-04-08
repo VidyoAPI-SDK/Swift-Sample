@@ -12,10 +12,7 @@ extension ConferenceViewController: ToolbarDelegate {
         if connectionManager.connectionState == .connected {
             connectionManager.disconnect()
             NotificationCenter.default.post(name: .noConferenceAvailable, object: nil)
-        }
-        dismiss(animated: true) {
-            chatManager.clearData()
-            self.preferences.updateDisabledStates()
+            self.presentLoadingVC()
         }
     }
     
@@ -46,6 +43,12 @@ extension ConferenceViewController: ToolbarDelegate {
         refreshVideoView()
     }
     
+    func onTorchButtonPressed() {
+        connector.changeDevicePrivacy(forOption: .torch)
+        toolbar.updatePreferenceImages()
+        refreshVideoView()
+    }
+    
     //MARK: - More
     func onMultipleShareButtonPressed(){}
     func onModeratorButtonPressed(){}
@@ -64,7 +67,6 @@ extension ConferenceViewController: ToolbarDelegate {
     }
     
     func onBackgroundButtonPressed() {
-        NotificationCenter.default.post(name: .onBackgroundOpenned, object: nil)
         toolbar.updateBackgroundButton(forValue: true)
         let factory = InstantiateFromStoryboardFactory()
         let nc: UINavigationController = factory.instantiateNavigationController(with: .backgroundNC)

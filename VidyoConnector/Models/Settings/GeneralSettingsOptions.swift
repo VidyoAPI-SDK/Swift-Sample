@@ -14,6 +14,7 @@ enum GeneralSettingsOption: String, CaseIterable {
     case networkMedia = "Network for Media"
     case participants = "Select Number of Participants"
     case selfView = "Selfview Options"
+    case borderStyle = "Border Style"
     
     case enableAutoReconnect = "Auto Reconnect"
     case reconnectAttempts = "Max Reconnect Attempts"
@@ -45,9 +46,30 @@ struct GeneralSecondaryOptions {
         return options
     }()
     
-    var selfView = [
-        OptionToChoose(title: SelfViewOption.bottomRight.rawValue, isChosen: true)
-    ]
+    var selfView: [OptionToChoose] = {
+        var options = [
+            OptionToChoose(title: SelfViewOption.topRight.rawValue, isChosen: true),
+            OptionToChoose(title: SelfViewOption.topLeft.rawValue, isChosen: false),
+            OptionToChoose(title: SelfViewOption.bottomRight.rawValue, isChosen: false),
+            OptionToChoose(title: SelfViewOption.bottomLeft.rawValue, isChosen: false),
+            OptionToChoose(title: SelfViewOption.centerRight.rawValue, isChosen: false),
+            OptionToChoose(title: SelfViewOption.centerLeft.rawValue, isChosen: false),
+            OptionToChoose(title: SelfViewOption.topCenter.rawValue, isChosen: false),
+            OptionToChoose(title: SelfViewOption.centerCenter.rawValue, isChosen: false),
+            OptionToChoose(title: SelfViewOption.bottomCenter.rawValue, isChosen: false)
+        ]
+        return options
+    }()
+    
+    var borderStyle: [OptionToChoose] = {
+        var options = [
+            OptionToChoose(title: BorderStyleOption.highlight.rawValue, isChosen: true),
+            OptionToChoose(title: BorderStyleOption.flash.rawValue, isChosen: false),
+            OptionToChoose(title: BorderStyleOption.same.rawValue, isChosen: false),
+            OptionToChoose(title: BorderStyleOption.none.rawValue, isChosen: false)
+        ]
+        return options
+    }()
     
     var analitycs = [
         OptionToChoose(title: String(), isChosen: true)

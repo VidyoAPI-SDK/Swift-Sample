@@ -10,7 +10,7 @@
 		target Property List file is generated, but before it is code-signed.
 	}
 	{copyright:
-		(c) 2022 Vidyo, Inc.,
+		(c) 2025 Vidyo, Inc.,
 		433 Hackensack Avenue, 7th Floor,
 		Hackensack, NJ  07601.
 
@@ -27,8 +27,8 @@
 COMMENTBLOCK
 
 # NOTE: Build tools/scripts automatically rewrite lines below to update version.
-VIDYO_XCODE_CFBundleShortVersionString="24.1.2"
-VIDYO_XCODE_CFBundleVersion="1"
+VIDYO_XCODE_CFBundleShortVersionString="24.2.0"
+VIDYO_XCODE_CFBundleVersion="17"
 
 # Modify relevant values in the build-generated Property List.
 # - Update what Apple calls the "version number" and the "build number".

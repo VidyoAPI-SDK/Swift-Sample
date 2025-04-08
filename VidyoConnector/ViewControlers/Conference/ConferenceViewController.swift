@@ -19,6 +19,7 @@ class ConferenceViewController: UIViewController {
     @IBOutlet weak var shareScreenLabelContainer: UIView!
     
     // MARK: - Const & vars
+    let renderer = RendererManager.shared
     let loadingVC = LoadingViewController()
     let toolbar = ConferenceToolbar.loadFromNib()
     let cameraPtz = CameraControlView.loadFromNib()
@@ -54,11 +55,13 @@ class ConferenceViewController: UIViewController {
         prepareAutoReconnectHandlers()
         prepareModerationHandlers()
         prepareConferenceModeHandlers()
+        videoView.isMultipleTouchEnabled = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateToolbarBadges()
+        SettingsManager.shared.setDelegate(toolbar)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -69,16 +72,25 @@ class ConferenceViewController: UIViewController {
         connectToRoomIfNeeded()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        hideVideoView()
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         removeObservers()
-        hideVideoView()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        refreshVideoView()
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.renderer.setViewSize(&self.videoView, self.videoView.frame)
+        }
     }
+    
     
     // MARK: - Functions
     @objc private func onBroadcastStarted() {
@@ -101,10 +113,6 @@ class ConferenceViewController: UIViewController {
         refreshVideoView()
     }
     
-    @objc private func onBackgroundOpenned() {
-     hideVideoView()
- }
-    
     private func onScreenShareStateUpdated() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -121,7 +129,6 @@ class ConferenceViewController: UIViewController {
         observe(.conferenceBroadcastFinished, #selector(onBroadcastFinished))
         observe(.noRemoteCameraToControl, #selector(onNoRemoteCameraToControl))
         observe(.onBackgroundChose, #selector(onBackgroundChose))
-        observe(.onBackgroundOpenned, #selector(onBackgroundOpenned))
     }
     
     private func connectToRoomIfNeeded() {
@@ -185,10 +192,16 @@ class ConferenceViewController: UIViewController {
         connectionManager.onDisconnectionHandler = { [weak self] in
             self?.connectionManager.connectionState = .disconnected
             self?.showConnectionMessage(" Disconnected.")
-            DispatchQueue.main.async { [weak self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 guard let self = self else { return }
                 self.isBroadcastStarted = false
                 self.loadingVC.dismiss()
+                
+                self.dismiss(animated: true) {
+                    self.hideVideoView()
+                    self.preferences.updateDisabledStates()
+                }
+                
                 NotificationCenter.default.post(name: .noConferenceAvailable, object: nil)
             }
             chatManager.clearData()
@@ -287,7 +300,7 @@ class ConferenceViewController: UIViewController {
     }
     
     private func onLobbyMode() {
-        connector.hideView(&videoView)
+        renderer.hideView(&self.videoView)
         if !preferences.getCurrentState(of: .camera) { // if camera unmuted
             connector.changeDevicePrivacy(forOption: .camera, specificState: true)
             toolbar.updatePreferenceImages()
@@ -305,17 +318,22 @@ class ConferenceViewController: UIViewController {
     }
     
     func updateToolbarBadges() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
             self.toolbar.setNewMessagesNumber(chatManager.newMessagesTotalNumber)
         }
     }
     
     func refreshVideoView() {
         guard !isLobbyMode else { return }
-        DispatchQueue.main.async { [weak self] in
+        
+        /*
+         *  Delay of 250 milliseconds so that main thread can get the time to render the UI.
+         */
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {  [weak self] in
             guard let self = self else { return }
-            self.connector.assignView(&self.videoView)
-            self.connector.showView(for: &self.videoView)
+            self.renderer.showConferenceView(&self.videoView)
+            self.renderer.setViewSize(&self.videoView, self.videoView.frame)
             self.videoView.bringSubviewToFront(self.shareScreenLabelContainer)
         }
     }
@@ -324,7 +342,6 @@ class ConferenceViewController: UIViewController {
         DispatchQueue.main.async {
             self.connectionControlLabel.text = message
             self.connectionControlLabel.isHidden = false
-            self.refreshVideoView()
         }
     }
     
@@ -354,13 +371,6 @@ class ConferenceViewController: UIViewController {
         videoView.bringSubviewToFront(lobbyViewContainer)
     }
     
-    private func hideVideoView() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.connector.hideView(&self.videoView)
-        }
-    }
-    
     private func hideConnectionMessage() {
         DispatchQueue.main.async {
             self.connectionControlLabel.isHidden = true
@@ -375,9 +385,10 @@ class ConferenceViewController: UIViewController {
         }
     }
     
-    private func presentLoadingVC() {
+    func presentLoadingVC() {
         loadingVC.modalPresentationStyle = .overCurrentContext
         loadingVC.modalTransitionStyle = .crossDissolve
+        loadingVC.startLoading()
         present(loadingVC, animated: true, completion: nil)
     }
     
@@ -391,6 +402,13 @@ class ConferenceViewController: UIViewController {
         
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
+    }
+    
+    func hideVideoView() {
+        guard connectionManager.connectionState == .disconnected else { return }
+        DispatchQueue.main.async { () in
+            self.renderer.hideView(&self.videoView)
+        }
     }
     
     func changeToolbarConstraints(withValue isActive: Bool) {

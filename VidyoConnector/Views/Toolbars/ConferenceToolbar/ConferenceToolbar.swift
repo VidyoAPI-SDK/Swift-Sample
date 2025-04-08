@@ -26,6 +26,7 @@ protocol ToolbarDelegate {
     func onMultipleShareButtonPressed()
     func onScreenShareButtonPressed()
     func onModeratorButtonPressed()
+    func onTorchButtonPressed()
 }
 
 // MARK: - ConferenceToolbar
@@ -47,6 +48,7 @@ class ConferenceToolbar: UIView {
     @IBOutlet weak var multipleShareButton: UIButton!
     @IBOutlet weak var screenShareButton: UIButton!
     @IBOutlet weak var moderatorButton: UIButton!
+    @IBOutlet weak var torchButton: UIButton!
     //Badges Label
     @IBOutlet weak var chatBadgeLabel: UILabel!
     @IBOutlet weak var participantsBadgeLabel: UILabel!
@@ -148,6 +150,10 @@ class ConferenceToolbar: UIView {
         delegate?.onModeratorButtonPressed()
     }
     
+    @IBAction func torchButtonPressed(_ sender: UIButton) {
+        delegate?.onTorchButtonPressed()
+    }
+    
     // MARK: - Methods
     @objc private func onRemoteCameraControlAvailable() {
         DispatchQueue.main.async {
@@ -242,6 +248,7 @@ class ConferenceToolbar: UIView {
         speakerButton.setImage(UIImage(named: preferences.getProperImageName(for: .speaker)), for: .normal)
         micButton.setImage(UIImage(named: preferences.getProperImageName(for: .mic)), for: .normal)
         cameraButton.setImage(UIImage(named: preferences.getProperImageName(for: .camera)), for: .normal)
+        torchButton.setImage(UIImage(named: preferences.getProperImageName(for: .torch)), for: .normal)
     }
     
     func updateCameraControlButtonImage(forValue isFeccAvailable: Bool) {
@@ -309,6 +316,11 @@ class ConferenceToolbar: UIView {
 extension ConferenceToolbar: LocalDeviceStateUpdatedDelegate {
     func onLocalDeviceStateUpdated(type: PreferencesOption, state: VCDeviceState) {
         preferences.handleStateUpdated(type: type, state: state)
+        updatePreferenceImages()
+    }
+    
+    func onOtherDeviceStateUpdated(type: PreferencesOption, state: DeviceState) {
+        preferences.handleTorchState(type: type, state : state)
         updatePreferenceImages()
     }
 }
