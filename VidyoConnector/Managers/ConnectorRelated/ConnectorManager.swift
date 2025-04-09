@@ -26,7 +26,7 @@ class ConnectorManager {
         participantsNumber = 5
         connector = VCConnector(
             nil,
-            viewStyle: .default,
+            viewStyle: .ngrSpeaker,
             remoteParticipants: participantsNumber,
             logFileFilter: "".cString(using: .utf8),
             logFileName: "\(Constants.LogsFile.pathString)/\(Constants.LogsFile.name)",

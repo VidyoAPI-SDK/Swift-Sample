@@ -510,7 +510,7 @@ class SettingsManager {
                         accessType: .chose,
                         title: RendererSettingsOption.layout.rawValue,
                         options: RendererSettingsOption.options.layout,
-                        isEnabled: DefaultValuesManager.shared.renderer == .ngr
+                        isEnabled: DefaultValuesManager.shared.renderer != .tile
                     ),
                 ]
             ),

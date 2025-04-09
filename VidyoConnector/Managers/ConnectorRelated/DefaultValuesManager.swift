@@ -14,8 +14,8 @@ class DefaultValuesManager {
     private var autoReconnectSetting: AutoReconnectSetting?
     private var audioOptions: AudioSettingOptions?
     
-    public var renderer = RendererType.primary
-    public var layout = LayoutType.grid
+    public var renderer = RendererType.ngr
+    public var layout = LayoutType.speaker
 
     public var debugInfoVisibility = false
     public var labelVisibility = true
