@@ -16,14 +16,11 @@
 		AC97417E27E28D70007C424C /* BackgroundImages in Resources */ = {isa = PBXBuildFile; fileRef = AC97417D27E28D70007C424C /* BackgroundImages */; };
 		AC97418027E28D83007C424C /* effects in Resources */ = {isa = PBXBuildFile; fileRef = AC97417F27E28D83007C424C /* effects */; };
 		AC9A45782992A9DA00593ED1 /* CertificatesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9A45772992A9DA00593ED1 /* CertificatesManager.swift */; };
-		AC9A45AA2992F0F100593ED1 /* custom_certificates.pem in Resources */ = {isa = PBXBuildFile; fileRef = AC9A45A52992F0F000593ED1 /* custom_certificates.pem */; };
 		ACE893B327E23D61008990C3 /* BNBEffectPlayerC.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACE893B227E23D61008990C3 /* BNBEffectPlayerC.xcframework */; };
 		ACE893B627E23E7F008990C3 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACE893B527E23E7F008990C3 /* Photos.framework */; };
 		ACE8945327E2568B008990C3 /* BNBEffectPlayerC.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ACE893B227E23D61008990C3 /* BNBEffectPlayerC.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B42628C62DA5A5B4009167CB /* NgrPlugin.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = B42628C52DA5A5B4009167CB /* NgrPlugin.xcframework */; };
-		B42628C72DA5A5B4009167CB /* NgrPlugin.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B42628C52DA5A5B4009167CB /* NgrPlugin.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B42628C92DA5A734009167CB /* VidyoClientIOS.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = B42628C82DA5A734009167CB /* VidyoClientIOS.xcframework */; };
-		B42628CA2DA5A734009167CB /* VidyoClientIOS.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B42628C82DA5A734009167CB /* VidyoClientIOS.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F10FE2122665469F00F440A5 /* LoginToolbar.xib in Resources */ = {isa = PBXBuildFile; fileRef = F10FE2112665469F00F440A5 /* LoginToolbar.xib */; };
 		F10FE215266546BA00F440A5 /* LoginToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10FE214266546BA00F440A5 /* LoginToolbar.swift */; };
 		F10FE21C266562D800F440A5 /* BaseJoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10FE21B266562D800F440A5 /* BaseJoinViewController.swift */; };
@@ -193,8 +190,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				ACE8945327E2568B008990C3 /* BNBEffectPlayerC.xcframework in Embed Frameworks */,
-				B42628C72DA5A5B4009167CB /* NgrPlugin.xcframework in Embed Frameworks */,
-				B42628CA2DA5A734009167CB /* VidyoClientIOS.xcframework in Embed Frameworks */,
 				F1F8903126B3EC2700C6E7BD /* CFNotificationCenterWrapper.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -228,7 +223,6 @@
 		AC97417D27E28D70007C424C /* BackgroundImages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = BackgroundImages; sourceTree = "<group>"; };
 		AC97417F27E28D83007C424C /* effects */ = {isa = PBXFileReference; lastKnownFileType = folder; name = effects; path = "../../VidyoClient-iOSSDK/lib/ios/Banuba/effects"; sourceTree = "<group>"; };
 		AC9A45772992A9DA00593ED1 /* CertificatesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificatesManager.swift; sourceTree = "<group>"; };
-		AC9A45A52992F0F000593ED1 /* custom_certificates.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = custom_certificates.pem; sourceTree = "<group>"; };
 		ACE893B227E23D61008990C3 /* BNBEffectPlayerC.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:6888NB32SR:Vidyo, Inc."; lastKnownFileType = wrapper.xcframework; name = BNBEffectPlayerC.xcframework; path = "VidyoClient-iOSSDK/lib/ios/Banuba/BNBEffectPlayerC.xcframework"; sourceTree = "<group>"; };
 		ACE893B527E23E7F008990C3 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		ACE893DC27E2406D008990C3 /* VidyoConnector.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VidyoConnector.entitlements; sourceTree = "<group>"; };
@@ -868,7 +862,6 @@
 		F19EAD33265BC73500131224 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
-				AC9A45A52992F0F000593ED1 /* custom_certificates.pem */,
 				AC97417F27E28D83007C424C /* effects */,
 				AC97417D27E28D70007C424C /* BackgroundImages */,
 				F17014B7265D195600E9B8DD /* VidyoConnector-iOS-Bridging-Header.h */,
@@ -1100,7 +1093,6 @@
 				F10FE2122665469F00F440A5 /* LoginToolbar.xib in Resources */,
 				AC97418027E28D83007C424C /* effects in Resources */,
 				F1969310267B8B0400A08F88 /* SwitchTableViewCell.xib in Resources */,
-				AC9A45AA2992F0F100593ED1 /* custom_certificates.pem in Resources */,
 				F12837E8265457B000DF5949 /* Assets.xcassets in Resources */,
 				F1969307267B8AE600A08F88 /* MainOptionTableViewCell.xib in Resources */,
 				F12837E6265457AF00DF5949 /* Main.storyboard in Resources */,
@@ -1162,9 +1154,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-VidyoConnector/Pods-VidyoConnector-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-VidyoConnector/Pods-VidyoConnector-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
