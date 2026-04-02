@@ -25,6 +25,7 @@ protocol ToolbarDelegate {
     func onParticipantsButtonPressed()
     func onMultipleShareButtonPressed()
     func onScreenShareButtonPressed()
+    func onDtmfDemoButtonPressed()
     func onModeratorButtonPressed()
     func onTorchButtonPressed()
 }
@@ -47,6 +48,7 @@ class ConferenceToolbar: UIView {
     @IBOutlet weak var participantsButton: UIButton!
     @IBOutlet weak var multipleShareButton: UIButton!
     @IBOutlet weak var screenShareButton: UIButton!
+    @IBOutlet weak var dtmfButton: UIButton!
     @IBOutlet weak var moderatorButton: UIButton!
     @IBOutlet weak var torchButton: UIButton!
     //Badges Label
@@ -145,6 +147,10 @@ class ConferenceToolbar: UIView {
     @IBAction func screenShareButtonPressed(_ sender: UIButton) {
         delegate?.onScreenShareButtonPressed()
     }
+
+    @IBAction func dtmfButtonPressed(_ sender: UIButton) {
+        delegate?.onDtmfDemoButtonPressed()
+    }
     
     @IBAction func moderatorButtonPressed(_ sender: UIButton) {
         delegate?.onModeratorButtonPressed()
@@ -194,6 +200,8 @@ class ConferenceToolbar: UIView {
         chatBadgeLabel.text = nil
         moreBadgeLabel.text = nil
         participantsBadgeLabel.text = nil
+
+        dtmfButton.accessibilityLabel = "DTMF"
     }
     
     private func hideProperButtons() {

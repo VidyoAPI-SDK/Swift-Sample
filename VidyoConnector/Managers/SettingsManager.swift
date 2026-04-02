@@ -53,6 +53,11 @@ class SettingsManager {
 		cameraConfiguration.delegate = delegate
         cameraConfiguration.updateTorchStatus();
     }
+
+    /// Plays a short in-band DTMF sequence on the selected local mic/speaker (demo / gateway testing).
+    func playDtmfDemo(tones: String = "123#") {
+        audioConfiguration.playDtmfDemo(tones: tones)
+    }
     
     func getMainOptinsData() -> [SettingsOptionCell] {
         return mainSettingsOptions

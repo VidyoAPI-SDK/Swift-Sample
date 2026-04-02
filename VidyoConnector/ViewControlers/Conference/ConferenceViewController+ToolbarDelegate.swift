@@ -104,6 +104,10 @@ extension ConferenceViewController: ToolbarDelegate {
         let vc: ScreenSharingAlertViewController = InstantiateFromStoryboardFactory().instantiateFromStoryboard()
         present(vc, animated: true, completion: nil)
     }
+
+    func onDtmfDemoButtonPressed() {
+        SettingsManager.shared.playDtmfDemo()
+    }
 }
 
 extension ConferenceViewController: UIPopoverPresentationControllerDelegate {

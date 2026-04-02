@@ -130,6 +130,14 @@
                                         <action selector="screenShareButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="S4b-qc-pcD"/>
                                     </connections>
                                 </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K7m-Dt-Mf9">
+                                    <rect key="frame" x="731" y="25.5" width="71.5" height="32"/>
+                                    <accessibility key="accessibilityConfiguration" label="DTMF"/>
+                                    <state key="normal" image="dtmf"/>
+                                    <connections>
+                                        <action selector="dtmfButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="L8n-Dt-Mf0"/>
+                                    </connections>
+                                </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GHt-YF-ZHE">
                                     <rect key="frame" x="822.5" y="25.5" width="71.5" height="32"/>
                                     <state key="normal" image="moderator"/>
@@ -231,6 +239,7 @@
                 <outlet property="cameraButton" destination="SQI-YY-ObJ" id="ztQ-WK-qzr"/>
                 <outlet property="cameraPTZButton" destination="SP2-Wj-tJx" id="6xf-Hf-RZj"/>
                 <outlet property="chatBadgeLabel" destination="AwS-kP-HCk" id="ZYA-aJ-wZ3"/>
+                <outlet property="dtmfButton" destination="K7m-Dt-Mf9" id="M9n-Dt-Mf1"/>
                 <outlet property="chatButton" destination="2SD-JL-fUk" id="m8c-Ai-VF8"/>
                 <outlet property="endCallButton" destination="9v2-nB-dgk" id="CJT-ay-j4d"/>
                 <outlet property="micButton" destination="7HC-uN-RlE" id="m5T-Y4-H6u"/>
@@ -254,6 +263,7 @@
         <image name="background" width="32" height="32"/>
         <image name="cameraOn" width="32" height="32"/>
         <image name="chat" width="32" height="32"/>
+        <image name="dtmf" width="32" height="32"/>
         <image name="endCall" width="32" height="32"/>
         <image name="fecc" width="32" height="32"/>
         <image name="micOn" width="32" height="32"/>

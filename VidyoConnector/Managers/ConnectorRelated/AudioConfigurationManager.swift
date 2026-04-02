@@ -94,6 +94,35 @@ class AudioConfigurationManager {
             connector.select(currentLocalSpeaker)
         }
     }
+
+    /// Demo: in-band DTMF via microphone + local speaker feedback (same pattern as Android Kotlin sample).
+    func playDtmfDemo(tones: String = "123#", intervalSeconds: TimeInterval = 0.25) {
+        log.info("DTMF demo: sending tones='\(tones)' (speaker+microphone)")
+        var delay: TimeInterval = 0
+        for ch in tones {
+            guard !ch.isWhitespace else { continue }
+            let toneChar = ch
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+                guard let self = self else { return }
+                let c = Self.cChar(for: toneChar)
+                if let speaker = self.currentLocalSpeaker {
+                    log.info("DTMF: VCLocalSpeaker playTone('\(toneChar)')")
+                    speaker.playTone(c)
+                }
+                if let microphone = self.currentLocalMicrophone {
+                    log.info("DTMF: VCLocalMicrophone playTone('\(toneChar)')")
+                    microphone.playTone(c)
+                }
+            }
+            delay += intervalSeconds
+        }
+    }
+
+    private static func cChar(for character: Character) -> Int8 {
+        let s = String(character)
+        guard let byte = s.utf8.first else { return 0 }
+        return Int8(bitPattern: byte)
+    }
 }
 
 //MARK: - VCConnectorIRegisterLocalMicrophoneEventListener
