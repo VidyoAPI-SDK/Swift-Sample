@@ -15,7 +15,7 @@ let log = Logger()
 class AppDelegate: UIResponder, UIApplicationDelegate {
   
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        VCConnectorPkg.vcInitialize()
+        VCConnectorPkg.vcInitialize("\(Constants.LogsFile.pathString)/\(Constants.LogsFile.name)")
         
         if let options = AnalyticsManager.getDefaultGoogleAnalyticOptions() {
             let json = String(format: "{\"GoogleAnalyticsData\":{\"id\":\"%@\",\"key\":\"%@\"}}", options.id, options.key)

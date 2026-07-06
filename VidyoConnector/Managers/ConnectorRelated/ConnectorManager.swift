@@ -29,7 +29,6 @@ class ConnectorManager {
             viewStyle: .ngrSpeaker,
             remoteParticipants: participantsNumber,
             logFileFilter: "".cString(using: .utf8),
-            logFileName: "\(Constants.LogsFile.pathString)/\(Constants.LogsFile.name)",
             userData: 0
         )
 

@@ -27,8 +27,8 @@
 COMMENTBLOCK
 
 # NOTE: Build tools/scripts automatically rewrite lines below to update version.
-VIDYO_XCODE_CFBundleShortVersionString="26.1.0"
-VIDYO_XCODE_CFBundleVersion="3"
+VIDYO_XCODE_CFBundleShortVersionString="26.1.2"
+VIDYO_XCODE_CFBundleVersion="11"
 
 # Modify relevant values in the build-generated Property List.
 # - Update what Apple calls the "version number" and the "build number".
