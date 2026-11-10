@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		539A81A06DE940A0968CADA7 /* PiPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC06D9AF505646838EAF7D78 /* PiPManager.swift */; };
+		6E9F82C7F0C44987990359F5 /* PiPCallDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80D0B12BF6D4C239FDAE497 /* PiPCallDataSource.swift */; };
+		DD16FA907F0E4D228920D890 /* AVCaptureSession+Multitasking.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE29FE838444B78A04C4B3A /* AVCaptureSession+Multitasking.m */; };
 		0F9671E8288E7E3900E23170 /* VidyoInsightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9671E7288E7E3900E23170 /* VidyoInsightViewController.swift */; };
 		8DAD2DE7DEF74CDF8FF0B23F /* Pods_VidyoConnector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1905E961CD7C651181627E4C /* Pods_VidyoConnector.framework */; };
 		94DC80452A2015580047E45C /* RendererManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DC80442A2015580047E45C /* RendererManager.swift */; };
@@ -209,6 +212,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AC06D9AF505646838EAF7D78 /* PiPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PiPManager.swift; sourceTree = "<group>"; };
+		C80D0B12BF6D4C239FDAE497 /* PiPCallDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PiPCallDataSource.swift; sourceTree = "<group>"; };
+		BDE29FE838444B78A04C4B3A /* AVCaptureSession+Multitasking.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AVCaptureSession+Multitasking.m"; sourceTree = "<group>"; };
 		0C67D3104340FD8D36B848C3 /* Pods-VidyoConnector.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VidyoConnector.release.xcconfig"; path = "Target Support Files/Pods-VidyoConnector/Pods-VidyoConnector.release.xcconfig"; sourceTree = "<group>"; };
 		0F9671E7288E7E3900E23170 /* VidyoInsightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VidyoInsightViewController.swift; sourceTree = "<group>"; };
 		11F273CF2B29CD17000D75F8 /* RendererPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RendererPlugin.swift; sourceTree = "<group>"; };
@@ -487,6 +493,8 @@
 				F18B54FA266444040082235C /* Resources */,
 				F1ECCBA426B3E6D000AA4BF8 /* ScreenShare */,
 				F19EAD33265BC73500131224 /* SupportingFiles */,
+				31F6394ADD4041A79A2838E9 /* PiP */,
+				3B4761E43BF14F05A58DD394 /* Categories */,
 			);
 			path = VidyoConnector;
 			sourceTree = "<group>";
@@ -973,6 +981,23 @@
 			path = LobbyInfoView;
 			sourceTree = "<group>";
 		};
+		31F6394ADD4041A79A2838E9 /* PiP */ = {
+			isa = PBXGroup;
+			children = (
+				AC06D9AF505646838EAF7D78 /* PiPManager.swift */,
+				C80D0B12BF6D4C239FDAE497 /* PiPCallDataSource.swift */,
+			);
+			path = PiP;
+			sourceTree = "<group>";
+		};
+		3B4761E43BF14F05A58DD394 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				BDE29FE838444B78A04C4B3A /* AVCaptureSession+Multitasking.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1192,6 +1217,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				539A81A06DE940A0968CADA7 /* PiPManager.swift in Sources */,
+				6E9F82C7F0C44987990359F5 /* PiPCallDataSource.swift in Sources */,
+				DD16FA907F0E4D228920D890 /* AVCaptureSession+Multitasking.m in Sources */,
 				F194004C267D38CB009650D8 /* AnalyticsEvent.swift in Sources */,
 				F12D3445265509B2005929E8 /* JoinAsRegisteredViewController.swift in Sources */,
 				F18F2FCF26C26FDF0074A923 /* CameraControlView.swift in Sources */,
