@@ -19,10 +19,18 @@ class RemoteCameraManager {
     private var remoteControllableCamera: RemoteControllableCamera?
     
     var remoteControllableCameras = SynchronizedArray<RemoteControllableCamera>()
+    // MARK: System PiP support
+    // VCConnector allows only one remote-camera event listener. PiP reuses this manager's
+    // registration via snapshots + change observers (do not register a second listener).
+    /// All remote cameras (not only PTZ-controllable) for PiP focus selection.
+    private var remoteCameras = SynchronizedArray<PiPRemoteCameraRow>()
     
     var onRemoteCameraAddedHandler: ((VCParticipant) -> ())?
     var onRemoteCameraStateUpdatedHandler: ((VCParticipant, Bool) -> ())?
     var onRemoteCameraRemovedHandler: ((VCParticipant) -> ())?
+
+    private let changeLock = NSLock()
+    private var changeObservers: [UUID: () -> Void] = [:]
     
     func registerRemoteCameraEventListener() {
         connector.registerRemoteCameraEventListener(self)
@@ -30,6 +38,36 @@ class RemoteCameraManager {
     
     func unregisterRemoteCameraEventListener() {
         connector.unregisterRemoteCameraEventListener()
+    }
+
+    /// Thread-safe copy for `PiPCallDataSource.remoteCameraSnapshot()`.
+    func synchronizedSnapshot() -> [PiPRemoteCameraRow] {
+        remoteCameras.map { $0 }
+    }
+
+    /// Used by `ConferencePiPDataSource` so PiP re-evaluates focus when cameras change.
+    @discardableResult
+    func addChangeObserver(_ handler: @escaping () -> Void) -> UUID {
+        let id = UUID()
+        changeLock.lock()
+        changeObservers[id] = handler
+        changeLock.unlock()
+        return id
+    }
+
+    func removeChangeObserver(_ id: UUID) {
+        changeLock.lock()
+        changeObservers.removeValue(forKey: id)
+        changeLock.unlock()
+    }
+
+    private func notifyChangeObservers() {
+        changeLock.lock()
+        let handlers = Array(changeObservers.values)
+        changeLock.unlock()
+        DispatchQueue.main.async {
+            handlers.forEach { $0() }
+        }
     }
     
     func selectCameraToControl(_ object: RemoteControllableCamera) {
@@ -118,20 +156,50 @@ class RemoteCameraManager {
             }
         }
     }
+
+    private func upsertCamera(_ camera: VCRemoteCamera, participant: VCParticipant, isPaused: Bool) {
+        if let index = remoteCameras.firstIndex(where: { $0.camera === camera }) {
+            remoteCameras.remove(at: index)
+        }
+        remoteCameras.append(PiPRemoteCameraRow(camera: camera, participant: participant, isPaused: isPaused))
+        notifyChangeObservers()
+    }
+
+    private func removeCamera(_ camera: VCRemoteCamera) {
+        remoteCameras.remove(where: { $0.camera === camera })
+        notifyChangeObservers()
+    }
+
+    private func isPausedState(_ state: VCDeviceState) -> Bool {
+        switch state {
+        case .paused, .stopped, .suspended, .removed:
+            return true
+        default:
+            return false
+        }
+    }
 }
 
 //MARK: - VCConnectorIRegisterRemoteCameraEventListener
 extension RemoteCameraManager: VCConnectorIRegisterRemoteCameraEventListener {
     func onRemoteCameraAdded(_ remoteCamera: VCRemoteCamera!, participant: VCParticipant!) {
+        guard let remoteCamera = remoteCamera, let participant = participant else { return }
+        upsertCamera(remoteCamera, participant: participant, isPaused: false)
         onRemoteCameraAddedHandler?(participant)
     }
     
     func onRemoteCameraRemoved(_ remoteCamera: VCRemoteCamera!, participant: VCParticipant!) {
-        onRemoteCameraRemovedHandler?(participant)
+        guard let remoteCamera = remoteCamera else { return }
+        removeCamera(remoteCamera)
+        if let participant = participant {
+            onRemoteCameraRemovedHandler?(participant)
+        }
         removeControllableCamera(remoteCamera)
     }
     
     func onRemoteCameraStateUpdated(_ remoteCamera: VCRemoteCamera!, participant: VCParticipant!, state: VCDeviceState) {
+        guard let remoteCamera = remoteCamera, let participant = participant else { return }
+        upsertCamera(remoteCamera, participant: participant, isPaused: isPausedState(state))
         onRemoteCameraStateUpdatedHandler?(participant, remoteCamera.isControllable())
         appendControllableCamera(remoteCamera, participant: participant)
     }

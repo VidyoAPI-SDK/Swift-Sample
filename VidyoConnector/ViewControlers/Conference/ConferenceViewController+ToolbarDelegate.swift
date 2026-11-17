@@ -10,6 +10,9 @@ import UIKit
 extension ConferenceViewController: ToolbarDelegate {
     func onEndCallButtonPressed() {
         if connectionManager.connectionState == .connected {
+            // System PiP: block auto-start and invalidate before disconnect so no orphan bubble.
+            blockSystemPiPBackgroundStart = true
+            tearDownSystemPiP()
             connectionManager.disconnect()
             NotificationCenter.default.post(name: .noConferenceAvailable, object: nil)
             self.presentLoadingVC()
