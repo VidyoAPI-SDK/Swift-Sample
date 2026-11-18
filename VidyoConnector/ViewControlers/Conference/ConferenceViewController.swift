@@ -26,7 +26,14 @@ class ConferenceViewController: UIViewController {
     let lobbyInfo = LobbyInfoView.loadFromNib()
     
     var connectParams: ConnectionData?
-    var pinnedParticipantID: String?
+    var pinnedParticipantID: String? {
+        didSet {
+            // System PiP: pin changes must refresh focus (share > pin > loudest > first camera).
+            if #available(iOS 15.0, *) {
+                pipDataSource?.notePinnedChanged()
+            }
+        }
+    }
     
     var connector = ConnectorManager.shared
     var preferences = PreferencesManager.shared
@@ -34,6 +41,16 @@ class ConferenceViewController: UIViewController {
     var participantsManager = ConnectorManager.shared.participantManager
     var remoteShareManager = RemoteShareManager()
     var moderationManager = ModerationManager()
+    // MARK: System PiP (see PiP/PiPManager.swift + PiP/PiPCallDataSource.swift)
+    /// Owns AVKit PiP for this call screen (auto-starts on scene deactivate; no toolbar button).
+    private var pipManager: PiPManager?
+    /// Maps this VC + managers onto `PiPCallDataSource` for focus selection.
+    private var pipDataSource: ConferencePiPDataSource?
+    /// When true, ignore background auto-start (end-call / disconnect teardown in progress).
+    var blockSystemPiPBackgroundStart = false
+    /// True only after a real background transition. Used to ignore SceneDidBecomeActive
+    /// bounces that cancel the first Home gesture before PiP finishes starting.
+    private var didEnterBackgroundForPiP = false
     
     var isLobbyMode: Bool = false {
         didSet {
@@ -67,14 +84,18 @@ class ConferenceViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         addObservers()
-        participantsManager.registerRemoteCamera()
+        // Keep remote camera/mic listeners for the whole conference (PiP shares the single camera listener).
+        participantsManager.registerRemoteDevices()
         refreshVideoView()
         connectToRoomIfNeeded()
+        configureSystemPiPIfNeeded()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         hideVideoView()
+        // Invalidate PiP so no bubble survives leaving the call screen.
+        tearDownSystemPiP()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -129,6 +150,11 @@ class ConferenceViewController: UIViewController {
         observe(.conferenceBroadcastFinished, #selector(onBroadcastFinished))
         observe(.noRemoteCameraToControl, #selector(onNoRemoteCameraToControl))
         observe(.onBackgroundChose, #selector(onBackgroundChose))
+        // System PiP auto-start / stop (AVKit requires start while scene is still foregroundActive).
+        observe(UIScene.willDeactivateNotification, #selector(sceneWillDeactivateForPiP(_:)))
+        observe(UIApplication.didEnterBackgroundNotification, #selector(applicationDidEnterBackgroundForPiP(_:)))
+        observe(UIApplication.willEnterForegroundNotification, #selector(applicationWillEnterForegroundForPiP(_:)))
+        observe(UIApplication.didBecomeActiveNotification, #selector(applicationDidBecomeActiveForPiP(_:)))
     }
     
     private func connectToRoomIfNeeded() {
@@ -175,8 +201,11 @@ class ConferenceViewController: UIViewController {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 self.connectionManager.connectionState = .connected
+                // Re-arm System PiP auto-start now that the call is live.
+                self.blockSystemPiPBackgroundStart = false
                 self.toolbar.updatePreferenceImages()
                 self.loadingVC.dismiss()
+                self.configureSystemPiPIfNeeded()
                 NotificationCenter.default.post(name: .conferenceAvailable, object: nil)
             }
         }
@@ -190,6 +219,9 @@ class ConferenceViewController: UIViewController {
             }
         }
         connectionManager.onDisconnectionHandler = { [weak self] in
+            // Block late PiP starts and tear down before connection state flips.
+            self?.blockSystemPiPBackgroundStart = true
+            self?.tearDownSystemPiP()
             self?.connectionManager.connectionState = .disconnected
             self?.showConnectionMessage(" Disconnected.")
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -335,6 +367,98 @@ class ConferenceViewController: UIViewController {
             self.renderer.showConferenceView(&self.videoView)
             self.renderer.setViewSize(&self.videoView, self.videoView.frame)
             self.videoView.bringSubviewToFront(self.shareScreenLabelContainer)
+            // Do not rebuild the AVKit controller here — a delayed refresh during the first
+            // Home swipe used to stop the new PiP session and restore the app.
+            self.configureSystemPiPIfNeeded()
+        }
+    }
+
+    // MARK: - System PiP
+    // Auto-start only: configure once connected, start on willDeactivate, stop on foreground.
+    // No PiP toolbar button in this sample.
+
+    /// Creates / refreshes `PiPManager` when connected and `videoView` is in a window.
+    private func configureSystemPiPIfNeeded() {
+        guard #available(iOS 15.0, *) else { return }
+        guard connectionManager.connectionState == .connected, !isLobbyMode else { return }
+        // AVKit needs the source view attached to a window before ContentSource is valid.
+        guard videoView.window != nil else { return }
+
+        if pipDataSource == nil {
+            pipDataSource = ConferencePiPDataSource(conference: self)
+        }
+        let manager = pipManager ?? PiPManager()
+        manager.delegate = self
+        pipManager = manager
+        manager.configure(sourceView: videoView, dataSource: pipDataSource)
+    }
+
+    /// End-of-call / leave-screen cleanup. Prefer calling before disconnect completes.
+    func tearDownSystemPiP() {
+        guard #available(iOS 15.0, *) else {
+            ConnectorManager.shared.setSystemPiPActive(false)
+            return
+        }
+        let work = { [weak self] in
+            guard let self = self else { return }
+            self.pipManager?.tearDown(invalidate: true)
+            self.pipManager = nil
+            self.pipDataSource = nil
+            ConnectorManager.shared.setSystemPiPActive(false)
+        }
+        if Thread.isMainThread {
+            work()
+        } else {
+            DispatchQueue.main.async(execute: work)
+        }
+    }
+
+    /// Home / app switcher: start PiP while scene is still `.foregroundActive`.
+    @objc private func sceneWillDeactivateForPiP(_ notification: Notification) {
+        guard #available(iOS 15.0, *) else { return }
+        // Keyboard + Pegasus PiP scene conflicts show up as a cancelled first Home swipe.
+        view.endEditing(true)
+        pipManager?.noteSceneWillDeactivate()
+        let isCallActive = !blockSystemPiPBackgroundStart
+            && connectionManager.connectionState == .connected
+            && !isLobbyMode
+        pipManager?.requestBackgroundStart(reason: "UISceneWillDeactivate",
+                                           sceneState: view.window?.windowScene?.activationState,
+                                           isCallActive: isCallActive)
+        // Do not schedule deferred stop/clear on cancelled Home. Stopping a live PiP
+        // retriggers willDeactivate → start → stop forever (foreground show/hide loop).
+        // Bounce: leave mid-start / active PiP alone. Real return from background stops below.
+    }
+
+    @objc private func applicationDidEnterBackgroundForPiP(_ notification: Notification) {
+        guard #available(iOS 15.0, *) else { return }
+        didEnterBackgroundForPiP = true
+    }
+
+    /// Returning to the app after a real background: dismiss PiP.
+    /// Do not run on the cancelled-Home bounce (never left foreground).
+    @objc private func applicationWillEnterForegroundForPiP(_ notification: Notification) {
+        guard #available(iOS 15.0, *) else { return }
+        guard didEnterBackgroundForPiP else { return }
+        pipManager?.stop(force: true)
+        pipManager?.resetBackgroundCycle()
+    }
+
+    @objc private func applicationDidBecomeActiveForPiP(_ notification: Notification) {
+        guard #available(iOS 15.0, *) else { return }
+
+        // First Home swipe often fires SceneDidBecomeActive before PiP finishes starting
+        // (and before didEnterBackground). Do nothing on that bounce — never stop/clear here.
+        guard didEnterBackgroundForPiP else {
+            return
+        }
+        didEnterBackgroundForPiP = false
+
+        let wasPiPActive = pipManager?.isActive == true
+        pipManager?.stop(force: true)
+        pipManager?.resetBackgroundCycle()
+        if wasPiPActive {
+            pipManager?.updateSourceView(videoView, forceRebuild: true)
         }
     }
     
@@ -424,5 +548,19 @@ class ConferenceViewController: UIViewController {
         subview.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
         view.rightAnchor.constraint(equalTo: subview.rightAnchor, constant: 0).isActive = true
         subview.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+    }
+}
+
+// MARK: - PiPManagerDelegate
+
+@available(iOS 15.0, *)
+extension ConferenceViewController: PiPManagerDelegate {
+    func pipManager(_ manager: PiPManager, didChangeActive isActive: Bool, canStart: Bool) {
+        // `isSystemPiPActive` is already updated inside PiPManager; host can react to UI if needed.
+        log.info("System PiP state changed: active=\(isActive), canStart=\(canStart)")
+    }
+
+    func pipManager(_ manager: PiPManager, didFailWith error: Error) {
+        log.error("System PiP failed: \(error.localizedDescription)")
     }
 }

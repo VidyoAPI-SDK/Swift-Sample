@@ -17,9 +17,21 @@ class ConnectorManager {
     lazy var connectionManager = ConnectionHandlingManager()
     lazy var participantManager = ParticipantsManager()
     public var participantsNumber: UInt32
+    // MARK: System PiP
+    /// When true, `handleBackground()` keeps the connector in `.foreground` so remote frames
+    /// (and local camera via multitasking) continue while the System PiP window is showing.
+    /// Set by `PiPManager` when PiP starts / stops / fails / tears down.
+    private(set) var isSystemPiPActive = false
     
     var version: String {
         connector.getVersion()
+    }
+
+    /// Called from `PiPManager` (and call teardown) — do not set from UI arbitrarily.
+    func setSystemPiPActive(_ active: Bool) {
+        guard isSystemPiPActive != active else { return }
+        isSystemPiPActive = active
+        log.info("System PiP active state changed to: \(active)")
     }
     
     private init() {
@@ -96,6 +108,13 @@ class ConnectorManager {
     }
     
     func handleBackground() {
+        // System PiP path: stay in foreground mode so the SDK keeps delivering frames to PiP.
+        if isSystemPiPActive {
+            log.info("Keeping connector in foreground while system PiP is running")
+            connectionManager.connector.setMode(.foreground)
+            return
+        }
+
         let noMic: VCLocalMicrophone? = nil
         let noSpeaker: VCLocalSpeaker? = nil
         let isCameraMuted = preferences.getCurrentState(of: .camera)
