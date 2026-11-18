@@ -81,8 +81,10 @@ final class PiPManager {
 
     weak var delegate: PiPManagerDelegate?
 
-    /// PiP window is currently showing.
+    /// PiP window is currently showing (optimistic: true from willStart).
     var isActive: Bool { coordinator?.isActive ?? false }
+    /// AVKit reports the system PiP window is actually active (not just willStart).
+    var isPictureInPictureActive: Bool { coordinator?.isPictureInPictureActive ?? false }
     /// AVKit reports PiP can be started from the current source view.
     var canStart: Bool { coordinator?.canStartPictureInPicture ?? false }
 
@@ -117,8 +119,10 @@ final class PiPManager {
     }
 
     /// Call when the composite render view is recreated (layout refresh / rotation).
-    func updateSourceView(_ sourceView: UIView) {
-        coordinator?.updateSourceView(sourceView)
+    /// Pass `forceRebuild: true` only when returning from an active PiP session and the
+    /// AVKit controller must be replaced; never rebuild during a background start.
+    func updateSourceView(_ sourceView: UIView, forceRebuild: Bool = false) {
+        coordinator?.updateSourceView(sourceView, forceRebuild: forceRebuild)
     }
 
     /// Manual start/stop (optional toolbar button). This sample uses auto-start instead.
@@ -149,6 +153,25 @@ final class PiPManager {
     func resetBackgroundCycle() {
         didAttemptInCurrentBackgroundCycle = false
         didReceiveSceneWillDeactivate = false
+    }
+
+    /// Deferred cancelled-Home cleanup only: clear mid-start / optimistic flags without
+    /// calling `stopPictureInPicture()` (that races AVKit and flashes the first swipe off).
+    /// No-op while AVKit reports the PiP window active — caller should `stop(force:)` instead.
+    /// Do not call from SceneDidBecomeActive bounce; that races willStart.
+    func clearOptimisticBackgroundStartIfNeeded() {
+        guard let coordinator = coordinator else {
+            ConnectorManager.shared.setSystemPiPActive(false)
+            resetBackgroundCycle()
+            return
+        }
+        if coordinator.isPictureInPictureActive {
+            // Real PiP over foreground — leave it; delayed cleanup or user return will stop.
+            return
+        }
+        coordinator.clearInFlightStartWithoutStoppingController()
+        ConnectorManager.shared.setSystemPiPActive(false)
+        resetBackgroundCycle()
     }
 
     /// Call from `UIScene.willDeactivateNotification` before `requestBackgroundStart`.
@@ -828,6 +851,8 @@ fileprivate final class SystemPiPCoordinator: NSObject {
     private var enqueueDispatchDelaySamples: Int64 = 0
     private var shouldStartCaptureAfterPiPDidStart = false
     private var isCaptureRunningForPiP = false
+    /// True between background-start request and didStart / failedToStart / stop.
+    private var isStartingPiP = false
     private var pipFocusTracker: PiPFocusTracker?
     /// Hard gate to prevent any late/automatic PiP starts during teardown.
     private var pipStartBlocked = false
@@ -847,6 +872,11 @@ fileprivate final class SystemPiPCoordinator: NSObject {
     private var lastEnqueuePerfLogTs: CFTimeInterval = CACurrentMediaTime()
 
     private(set) var isActive = false
+
+    /// True only when AVKit reports the system PiP window is actually up (not optimistic willStart).
+    var isPictureInPictureActive: Bool {
+        pipController?.isPictureInPictureActive == true
+    }
     
     var canStartPictureInPicture: Bool {
         guard AVPictureInPictureController.isPictureInPictureSupported() else { return false }
@@ -1040,8 +1070,25 @@ fileprivate final class SystemPiPCoordinator: NSObject {
         }
     }
 
-    func updateSourceView(_ sourceView: UIView) {
+    func updateSourceView(_ sourceView: UIView, forceRebuild: Bool = false) {
+        let isSameView = (self.sourceView === sourceView)
         self.sourceView = sourceView
+
+        if !forceRebuild {
+            // Never tear down / rebuild while PiP is starting or already showing.
+            // A delayed `refreshVideoView` used to hit this path on the first Home swipe,
+            // stop the new PiP session, and restore the app to the foreground.
+            if isActive || isStartingPiP || pipController?.isPictureInPictureActive == true {
+                pipLogInfo("System PiP updateSourceView skipped: active/starting")
+                return
+            }
+
+            // Same composite view + existing controller: keep the warm AVKit session.
+            if isSameView, pipController != nil {
+                return
+            }
+        }
+
         // Soft-stop first if needed, then replace the controller (NeoIOS pattern).
         // Dropping the old controller releases a stuck system bubble; never detach contentSource.
         if pipController?.isPictureInPictureActive == true {
@@ -1093,19 +1140,39 @@ fileprivate final class SystemPiPCoordinator: NSObject {
         startRetryCount = 0
         pendingBackgroundStartOnFirstFrame = false
         shouldStartCaptureAfterPiPDidStart = true
+        isStartingPiP = true
         
         let sceneState = sourceView.window?.windowScene?.activationState.rawValue ?? -1
         let appState = UIApplication.shared.applicationState.rawValue
-        pipLogInfo("System PiP background start: immediate request, appState=\(appState), sceneState=\(sceneState)")
+        pipLogInfo("System PiP background start: immediate request, appState=\(appState), sceneState=\(sceneState), possible=\(pipController?.isPictureInPicturePossible == true)")
         applyPiPVideoWellBacking(opaqueBlack: true)
         shouldEnqueueSamplesToPiPDisplayLayer = true
-        pipController?.startPictureInPicture()
+        // No manual startPictureInPicture(): calling it mid Home-gesture makes iOS cancel the gesture
+        // (PiP opens over a foreground app). canStartPictureInPictureAutomaticallyFromInline starts PiP
+        // as part of the gesture, and willStart marks the active state.
     }
     
+    /// Bounce / cancelled Home: drop optimistic mid-start state without calling
+    /// `stopPictureInPicture()` (that races AVKit and flashes the first swipe off).
+    func clearInFlightStartWithoutStoppingController() {
+        guard pipController?.isPictureInPictureActive != true else { return }
+        pendingStartRequest = false
+        pendingBackgroundStartOnFirstFrame = false
+        shouldStartCaptureAfterPiPDidStart = false
+        isStartingPiP = false
+        if isActive {
+            isActive = false
+            applyPiPVideoWellBacking(opaqueBlack: false)
+            delegate?.systemPiPCoordinator(self, didUpdateState: false, canStart: canStartPictureInPicture)
+        }
+        pipLogInfo("System PiP cleared in-flight start without stopping controller")
+    }
+
     func stopPictureInPicture(force: Bool) {
         pendingStartRequest = false
         pendingBackgroundStartOnFirstFrame = false
         shouldStartCaptureAfterPiPDidStart = false
+        isStartingPiP = false
         bumpPiPSampleBufferEpochForTeardown()
         shouldEnqueueSamplesToPiPDisplayLayer = false
         isCaptureRunningForPiP = false
@@ -1161,6 +1228,7 @@ fileprivate final class SystemPiPCoordinator: NSObject {
         pendingStartRequest = false
         pendingBackgroundStartOnFirstFrame = false
         shouldStartCaptureAfterPiPDidStart = false
+        isStartingPiP = false
         bumpPiPSampleBufferEpochForTeardown()
         shouldEnqueueSamplesToPiPDisplayLayer = false
         isCaptureRunningForPiP = false
@@ -1185,7 +1253,7 @@ fileprivate final class SystemPiPCoordinator: NSObject {
                                                                        contentViewController: pipVideoCallViewController)
         let controller = AVPictureInPictureController(contentSource: contentSource)
         controller.delegate = self
-        controller.canStartPictureInPictureAutomaticallyFromInline = false
+        controller.canStartPictureInPictureAutomaticallyFromInline = true
         pipController = controller
     }
     
@@ -1319,7 +1387,7 @@ fileprivate final class SystemPiPCoordinator: NSObject {
     }
     
     private func attemptBackgroundStartWhenFrameReady(trigger: String) {
-        // Retained for diagnostic compatibility; background flow now starts immediately.
+        // Retained for diagnostic compatibility; background flow starts immediately.
         pipLogInfo("System PiP background first-sample callback received (ignored), trigger=\(trigger)")
     }
 }
@@ -1352,6 +1420,7 @@ extension SystemPiPCoordinator: AVPictureInPictureControllerDelegate {
     func pictureInPictureControllerDidStartPictureInPicture(_ pictureInPictureController: AVPictureInPictureController) {
         pendingStartRequest = false
         pendingBackgroundStartOnFirstFrame = false
+        isStartingPiP = false
         pendingFirstEnqueueLayerHealthLog = true
         shouldEnqueueSamplesToPiPDisplayLayer = true
         pipLogInfo("System PiP did start")
@@ -1368,6 +1437,7 @@ extension SystemPiPCoordinator: AVPictureInPictureControllerDelegate {
     
     func pictureInPictureControllerWillStopPictureInPicture(_ pictureInPictureController: AVPictureInPictureController) {
         pipLogInfo("System PiP will stop")
+        isStartingPiP = false
         bumpPiPSampleBufferEpochForTeardown()
         hidePiPUnderlyingPlaceholderDiskIfShowingLiveFrames()
         shouldEnqueueSamplesToPiPDisplayLayer = false
@@ -1379,6 +1449,7 @@ extension SystemPiPCoordinator: AVPictureInPictureControllerDelegate {
     
     func pictureInPictureControllerDidStopPictureInPicture(_ pictureInPictureController: AVPictureInPictureController) {
         pipLogInfo("System PiP did stop")
+        isStartingPiP = false
         bumpPiPSampleBufferEpochForTeardown()
         applyPiPVideoWellBacking(opaqueBlack: false)
         shouldEnqueueSamplesToPiPDisplayLayer = false
@@ -1403,6 +1474,7 @@ extension SystemPiPCoordinator: AVPictureInPictureControllerDelegate {
         pendingStartRequest = false
         pendingBackgroundStartOnFirstFrame = false
         shouldStartCaptureAfterPiPDidStart = false
+        isStartingPiP = false
         bumpPiPSampleBufferEpochForTeardown()
         applyPiPVideoWellBacking(opaqueBlack: false)
         shouldEnqueueSamplesToPiPDisplayLayer = false

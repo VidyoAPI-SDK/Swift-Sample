@@ -48,6 +48,9 @@ class ConferenceViewController: UIViewController {
     private var pipDataSource: ConferencePiPDataSource?
     /// When true, ignore background auto-start (end-call / disconnect teardown in progress).
     var blockSystemPiPBackgroundStart = false
+    /// True only after a real background transition. Used to ignore SceneDidBecomeActive
+    /// bounces that cancel the first Home gesture before PiP finishes starting.
+    private var didEnterBackgroundForPiP = false
     
     var isLobbyMode: Bool = false {
         didSet {
@@ -149,6 +152,7 @@ class ConferenceViewController: UIViewController {
         observe(.onBackgroundChose, #selector(onBackgroundChose))
         // System PiP auto-start / stop (AVKit requires start while scene is still foregroundActive).
         observe(UIScene.willDeactivateNotification, #selector(sceneWillDeactivateForPiP(_:)))
+        observe(UIApplication.didEnterBackgroundNotification, #selector(applicationDidEnterBackgroundForPiP(_:)))
         observe(UIApplication.willEnterForegroundNotification, #selector(applicationWillEnterForegroundForPiP(_:)))
         observe(UIApplication.didBecomeActiveNotification, #selector(applicationDidBecomeActiveForPiP(_:)))
     }
@@ -363,10 +367,8 @@ class ConferenceViewController: UIViewController {
             self.renderer.showConferenceView(&self.videoView)
             self.renderer.setViewSize(&self.videoView, self.videoView.frame)
             self.videoView.bringSubviewToFront(self.shareScreenLabelContainer)
-            // Keep PiP's AVKit source view in sync after composite renderer resize.
-            if #available(iOS 15.0, *) {
-                self.pipManager?.updateSourceView(self.videoView)
-            }
+            // Do not rebuild the AVKit controller here — a delayed refresh during the first
+            // Home swipe used to stop the new PiP session and restore the app.
             self.configureSystemPiPIfNeeded()
         }
     }
@@ -414,6 +416,8 @@ class ConferenceViewController: UIViewController {
     /// Home / app switcher: start PiP while scene is still `.foregroundActive`.
     @objc private func sceneWillDeactivateForPiP(_ notification: Notification) {
         guard #available(iOS 15.0, *) else { return }
+        // Keyboard + Pegasus PiP scene conflicts show up as a cancelled first Home swipe.
+        view.endEditing(true)
         pipManager?.noteSceneWillDeactivate()
         let isCallActive = !blockSystemPiPBackgroundStart
             && connectionManager.connectionState == .connected
@@ -421,22 +425,41 @@ class ConferenceViewController: UIViewController {
         pipManager?.requestBackgroundStart(reason: "UISceneWillDeactivate",
                                            sceneState: view.window?.windowScene?.activationState,
                                            isCallActive: isCallActive)
+        // Do not schedule deferred stop/clear on cancelled Home. Stopping a live PiP
+        // retriggers willDeactivate → start → stop forever (foreground show/hide loop).
+        // Bounce: leave mid-start / active PiP alone. Real return from background stops below.
     }
 
-    /// Returning to the app: dismiss PiP and allow the next background cycle to auto-start again.
+    @objc private func applicationDidEnterBackgroundForPiP(_ notification: Notification) {
+        guard #available(iOS 15.0, *) else { return }
+        didEnterBackgroundForPiP = true
+    }
+
+    /// Returning to the app after a real background: dismiss PiP.
+    /// Do not run on the cancelled-Home bounce (never left foreground).
     @objc private func applicationWillEnterForegroundForPiP(_ notification: Notification) {
         guard #available(iOS 15.0, *) else { return }
+        guard didEnterBackgroundForPiP else { return }
         pipManager?.stop(force: true)
         pipManager?.resetBackgroundCycle()
     }
 
     @objc private func applicationDidBecomeActiveForPiP(_ notification: Notification) {
         guard #available(iOS 15.0, *) else { return }
+
+        // First Home swipe often fires SceneDidBecomeActive before PiP finishes starting
+        // (and before didEnterBackground). Do nothing on that bounce — never stop/clear here.
+        guard didEnterBackgroundForPiP else {
+            return
+        }
+        didEnterBackgroundForPiP = false
+
+        let wasPiPActive = pipManager?.isActive == true
         pipManager?.stop(force: true)
-        // NeoIOS pattern: recreate AVKit controller while foreground via updateSourceView.
-        // Dropping the old controller releases a stuck system bubble; the new one is ready
-        // for the next Home → PiP start (never detach contentSource / never rebuild on deactivate).
-        pipManager?.updateSourceView(videoView)
+        pipManager?.resetBackgroundCycle()
+        if wasPiPActive {
+            pipManager?.updateSourceView(videoView, forceRebuild: true)
+        }
     }
     
     private func showConnectionMessage(_ message: String) {

@@ -225,6 +225,8 @@ Own the PiP manager on the VC that owns the composite render view (`videoView`).
 private var pipManager: PiPManager?
 private var pipDataSource: ConferencePiPDataSource?
 var blockSystemPiPBackgroundStart = false
+/// True only after a real background. Ignores SceneDidBecomeActive bounce on first Home swipe.
+private var didEnterBackgroundForPiP = false
 ```
 
 ### 8.2 Configure after connect / when the view is in a window
@@ -249,7 +251,7 @@ Call this from:
 
 - `viewDidAppear` (after `registerRemoteDevices()` so camera + mic listeners exist)
 - connection-success handler
-- after `refreshVideoView()` (also call `pipManager?.updateSourceView(videoView)`)
+- after `refreshVideoView()` — call `configureSystemPiPIfNeeded()` only; **do not** call `updateSourceView` there (a delayed refresh during the first Home swipe used to rebuild AVKit and kill PiP)
 
 `sourceView` **must** be the SDK composite render view and must be in a window.
 
@@ -258,11 +260,14 @@ Call this from:
 ```swift
 // in addObservers():
 observe(UIScene.willDeactivateNotification, #selector(sceneWillDeactivateForPiP(_:)))
+observe(UIApplication.didEnterBackgroundNotification, #selector(applicationDidEnterBackgroundForPiP(_:)))
 observe(UIApplication.willEnterForegroundNotification, #selector(applicationWillEnterForegroundForPiP(_:)))
 observe(UIApplication.didBecomeActiveNotification, #selector(applicationDidBecomeActiveForPiP(_:)))
 
 @objc private func sceneWillDeactivateForPiP(_ notification: Notification) {
     guard #available(iOS 15.0, *) else { return }
+    // Keyboard + Pegasus PiP scene conflicts often cancel the first Home swipe.
+    view.endEditing(true)
     pipManager?.noteSceneWillDeactivate()
     let isCallActive = !blockSystemPiPBackgroundStart
         && connectionManager.connectionState == .connected
@@ -272,6 +277,13 @@ observe(UIApplication.didBecomeActiveNotification, #selector(applicationDidBecom
         sceneState: view.window?.windowScene?.activationState,
         isCallActive: isCallActive
     )
+    // Do not schedule deferred stop/clear on cancelled Home. Stopping a live PiP
+    // retriggers willDeactivate → start → stop forever.
+}
+
+@objc private func applicationDidEnterBackgroundForPiP(_ notification: Notification) {
+    guard #available(iOS 15.0, *) else { return }
+    didEnterBackgroundForPiP = true
 }
 ```
 
@@ -280,27 +292,36 @@ Rules:
 - Start only while scene is still `.foregroundActive` — `willDeactivate` is the last reliable moment. `didEnterBackground` is too late.
 - Built-in guards: call active, one attempt per background cycle, 0.25 s debounce.
 - Control Center / Notification Center also deactivate the scene — test for unexpected starts.
-- `canStartPictureInPictureAutomaticallyFromInline = false` (app decides).
+- Use **`canStartPictureInPictureAutomaticallyFromInline = true`**. On Home, prepare state in `requestBackgroundStart` / `startPictureInPictureForBackgroundTransition` but **do not** call `startPictureInPicture()` manually mid-gesture — that cancels the Home gesture and flashes PiP over the foreground app. AVKit starts PiP as part of the system gesture; `willStart` marks active early.
+- Never stop or clear optimistic PiP state on the cancelled-Home bounce (`SceneDidBecomeActive` / `willEnterForeground` when `didEnterBackground` never fired).
+- Never rebuild the AVKit controller while PiP is starting or active (`updateSourceView` skips unless `forceRebuild: true`).
 
 There is **no** PiP toolbar button in this sample. `PiPManager.toggle()` is available if you add one later.
 
 ### 8.4 Returning to the app
 
+Stop PiP only after a **real** background (`didEnterBackgroundForPiP == true`). The first Home swipe often fires `SceneDidBecomeActive` before PiP finishes starting — that bounce must be a no-op.
+
 ```swift
 @objc private func applicationWillEnterForegroundForPiP(_ notification: Notification) {
     guard #available(iOS 15.0, *) else { return }
+    guard didEnterBackgroundForPiP else { return }
     pipManager?.stop(force: true)
     pipManager?.resetBackgroundCycle()
 }
 
 @objc private func applicationDidBecomeActiveForPiP(_ notification: Notification) {
     guard #available(iOS 15.0, *) else { return }
+    guard didEnterBackgroundForPiP else { return }
+    didEnterBackgroundForPiP = false
+
+    let wasPiPActive = pipManager?.isActive == true
     pipManager?.stop(force: true)
-    // Recreate AVKit controller while foreground (NeoIOS pattern).
-    // Dropping the old controller releases a stuck system PiP bubble after tap-to-restore;
-    // the new controller is ready for the next Home → PiP auto-start.
-    // Do not detach ContentSource and do not recreate during willDeactivate.
-    pipManager?.updateSourceView(videoView)
+    pipManager?.resetBackgroundCycle()
+    // Rebuild AVKit only after a real return from an active PiP session.
+    if wasPiPActive {
+        pipManager?.updateSourceView(videoView, forceRebuild: true)
+    }
 }
 ```
 
@@ -359,14 +380,15 @@ extension ConferenceViewController: PiPManagerDelegate {
 |---|---|
 | `static var isSupported: Bool` | Device supports PiP |
 | `weak var delegate: PiPManagerDelegate?` | Active/canStart / failures (main thread) |
-| `var isActive: Bool` / `var canStart: Bool` | Current state |
+| `var isActive: Bool` / `var canStart: Bool` | Optimistic active (true from `willStart`) / can start |
+| `var isPictureInPictureActive: Bool` | AVKit reports the system PiP window is actually up |
 | `configure(sourceView:dataSource:)` | Create or refresh |
-| `updateSourceView(_:)` | Render view replaced |
+| `updateSourceView(_:forceRebuild:)` | Sync source view; skips rebuild while starting/active unless `forceRebuild: true` |
 | `toggle()` | Manual start/stop (optional button) |
-| `stop(force:)` | Foreground return |
+| `stop(force:)` | Real foreground return only |
 | `resetBackgroundCycle()` | Re-arm auto-start |
 | `noteSceneWillDeactivate()` | Before auto-start |
-| `requestBackgroundStart(reason:sceneState:isCallActive:)` | Auto-start |
+| `requestBackgroundStart(reason:sceneState:isCallActive:)` | Prepare auto-start (AVKit starts via automatic-from-inline) |
 | `tearDown(invalidate:)` | Call end; use `true` |
 
 ## 10. How it works (internals)
@@ -417,8 +439,10 @@ extension ConferenceViewController: PiPManagerDelegate {
 
 ### 10.5 AVKit (`SystemPiPCoordinator`)
 
-- 320×180 content size; always “playing”; start retries 6× / 120 ms.
+- 320×180 content size; always “playing”.
+- `canStartPictureInPictureAutomaticallyFromInline = true`. Background path prepares enqueue / black well / optimistic flags but does **not** call `startPictureInPicture()` mid Home gesture.
 - `willStart` marks active early so connector stays foreground.
+- `updateSourceView` refuses rebuild while `isStartingPiP` / `isActive` unless `forceRebuild: true` (avoids first-swipe kill from delayed `refreshVideoView`).
 - Expand control (`viewfinder`) stops PiP like foreground return.
 
 ### 10.6 Placeholder
@@ -453,13 +477,18 @@ extension ConferenceViewController: PiPManagerDelegate {
 - [ ] Lock/unlock during PiP: call continues.
 
 **Auto-start**
-- [ ] Home starts PiP once; Control Center / Notification Center does not leave sticky flicker.
+- [ ] **First** Home swipe keeps PiP (no brief show-then-hide). Second swipe also keeps PiP.
+- [ ] Cancelled / incomplete Home bounce does not stop PiP or start a show/hide loop.
+- [ ] Logs: `will start` → `did start`; no `will stop` until you reopen the app.
+- [ ] Control Center / Notification Center does not leave sticky flicker.
 
 ## 13. Troubleshooting
 
 | Symptom | Cause / fix |
 |---|---|
 | PiP never starts on home | Not connected / lobby / scene inactive / `blockSystemPiPBackgroundStart`. Check `background trigger ignored` logs. |
+| First Home flash (show then hide) | Manual `startPictureInPicture()` mid-gesture; stop/clear on `didBecomeActive` bounce; or `updateSourceView` rebuild during start. Use automatic-from-inline + gate stops on `didEnterBackgroundForPiP`. |
+| Foreground PiP show/hide loop | Deferred stop after cancelled Home retriggers `willDeactivate`. Never `stop` unless the app really entered background (or end-call). |
 | Black PiP | Connector went `.background` (section 7); wrong camera listener; PTS not increasing. |
 | Frozen frame | Timeline not reset on source change; another listener stole the camera frame callback. |
 | Far end loses your video | Missing multitasking `.m`; iOS &lt; 16; entitlement; camera muted/unpaired in background handler. |
